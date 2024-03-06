@@ -31,6 +31,7 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "supplier_id", nullable = false)
+    @JsonIgnore
     private Supplier supplierId;
 
     @ManyToMany
