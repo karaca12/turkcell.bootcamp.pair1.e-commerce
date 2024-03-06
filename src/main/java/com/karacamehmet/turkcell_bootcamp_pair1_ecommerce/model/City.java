@@ -13,7 +13,7 @@ public class City {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne
     @JoinColumn(name = "country_id", nullable = false)
     private Country countryId;
 

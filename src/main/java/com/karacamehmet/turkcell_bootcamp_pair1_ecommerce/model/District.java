@@ -13,7 +13,7 @@ public class District {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne
     @JoinColumn(name = "city_id", nullable = false)
     private City cityId;
 

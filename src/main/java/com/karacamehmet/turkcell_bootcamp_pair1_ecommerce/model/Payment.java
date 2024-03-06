@@ -16,7 +16,7 @@ public class Payment {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne
     @JoinColumn(name = "order_id", nullable = false)
     private Order orderId;
 
