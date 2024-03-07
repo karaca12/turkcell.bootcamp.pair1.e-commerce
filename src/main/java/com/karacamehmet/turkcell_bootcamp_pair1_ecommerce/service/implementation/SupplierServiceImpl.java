@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -15,5 +16,25 @@ public class SupplierServiceImpl implements SupplierService {
     @Override
     public List<Supplier> getAll() {
         return supplierRepository.findAll();
+    }
+
+    @Override
+    public Optional<Supplier> getById(int id) {
+        return supplierRepository.findById(id);
+    }
+
+    @Override
+    public void add(Supplier supplier) {
+        supplierRepository.save(supplier);
+    }
+
+    @Override
+    public void update(Supplier supplier) {
+
+    }
+
+    @Override
+    public void deleteById(int id) {
+        supplierRepository.deleteById(id);
     }
 }

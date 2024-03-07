@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -18,5 +19,25 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public List<Customer> getAll() {
         return customerRepository.findAll();
+    }
+
+    @Override
+    public Optional<Customer> getById(int id) {
+        return customerRepository.findById(id);
+    }
+
+    @Override
+    public void add(Customer customer) {
+        customerRepository.save(customer);
+    }
+
+    @Override
+    public void update(Customer customer) {
+
+    }
+
+    @Override
+    public void deleteById(int id) {
+        customerRepository.deleteById(id);
     }
 }
