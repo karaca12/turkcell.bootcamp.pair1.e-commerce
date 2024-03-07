@@ -3,10 +3,11 @@ package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.implementatio
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Order;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.OrderRepository;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.OrderService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
+@Service
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
 

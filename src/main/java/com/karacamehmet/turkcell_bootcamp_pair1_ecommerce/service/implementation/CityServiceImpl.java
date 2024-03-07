@@ -3,10 +3,11 @@ package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.implementatio
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.City;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.CityRepository;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.CityService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
+@Service
 public class CityServiceImpl implements CityService {
     private final CityRepository cityRepository;
 

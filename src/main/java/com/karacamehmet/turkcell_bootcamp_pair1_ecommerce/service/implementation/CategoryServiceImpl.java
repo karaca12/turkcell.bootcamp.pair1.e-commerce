@@ -3,10 +3,11 @@ package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.implementatio
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Category;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.CategoryRepository;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.CategoryService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
+@Service
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;

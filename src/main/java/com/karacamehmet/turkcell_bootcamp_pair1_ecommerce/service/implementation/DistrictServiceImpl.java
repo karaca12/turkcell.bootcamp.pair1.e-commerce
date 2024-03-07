@@ -3,10 +3,11 @@ package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.implementatio
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.District;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.DistrictRepository;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.DistrictService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
+@Service
 public class DistrictServiceImpl implements DistrictService {
     private final DistrictRepository districtRepository;
 
