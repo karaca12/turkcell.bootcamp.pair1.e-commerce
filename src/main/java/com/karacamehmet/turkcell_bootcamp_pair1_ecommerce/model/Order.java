@@ -24,7 +24,7 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "address_id", nullable = false)
-    private Adress addressId;
+    private Address addressId;
 
     @Column(name = "order_date", nullable = false)
     private LocalDate orderDate;

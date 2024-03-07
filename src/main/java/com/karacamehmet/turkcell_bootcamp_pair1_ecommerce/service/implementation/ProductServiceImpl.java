@@ -6,6 +6,7 @@ import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.Pr
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -19,5 +20,24 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> getAll() {
         return productRepository.findAll();
+    }
+
+    @Override
+    public Optional<Product> getById(int id) {
+        return productRepository.findById(id);
+    }
+
+    @Override
+    public void add(Product product) {
+        productRepository.save(product);
+    }
+
+    @Override
+    public void update(Product product) {
+    }
+
+    @Override
+    public void deleteById(int id) {
+        productRepository.deleteById(id);
     }
 }
