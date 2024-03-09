@@ -22,7 +22,7 @@ public class CustomerController {
     }
 
     @GetMapping("/noOrders")
-    List<Customer> findAllByOrdersNull(){
+    List<CustomerNullOrderResponse> findAllByOrdersNull(){
         return customerService.findAllByOrdersNull();
     }
 }

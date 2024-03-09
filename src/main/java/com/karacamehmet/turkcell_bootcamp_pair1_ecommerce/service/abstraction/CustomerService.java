@@ -17,5 +17,5 @@ public interface CustomerService {
 
     void deleteById(int id);
 
-    List<Customer> findAllByOrdersNull();
+    List<CustomerNullOrderResponse> findAllByOrdersNull();
 }

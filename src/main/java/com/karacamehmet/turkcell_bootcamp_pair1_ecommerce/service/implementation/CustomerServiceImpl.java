@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,8 +44,15 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<Customer> findAllByOrdersNull() {
-
-        return customerRepository.findAllByOrdersNull();
+    public List<CustomerNullOrderResponse> findAllByOrdersNull() {
+        List<Customer> customers = customerRepository.findAllByOrdersNull();
+        List<CustomerNullOrderResponse> response = new ArrayList<>();
+        for (Customer customer :
+                customers) {
+            CustomerNullOrderResponse dto = new
+                    CustomerNullOrderResponse(customer.getId(), customer.getUsers().getName(), customer.getLastName());
+            response.add(dto);
+        }
+        return response;
     }
 }
