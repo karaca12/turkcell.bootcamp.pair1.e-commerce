@@ -1,4 +1,4 @@
-package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dtos.customer;
+package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.customer;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

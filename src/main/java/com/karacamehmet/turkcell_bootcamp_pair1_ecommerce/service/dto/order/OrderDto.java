@@ -1,7 +1,7 @@
-package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dtos.order;
+package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.order;
 
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dtos.address.AddressDto;
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dtos.customer.CustomerDto;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.address.AddressDto;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.customer.CustomerDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

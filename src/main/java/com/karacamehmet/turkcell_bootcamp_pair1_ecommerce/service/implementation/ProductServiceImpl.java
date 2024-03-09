@@ -1,6 +1,5 @@
 package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.implementation;
 
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.dto.product.response.ProductHowManySoldResponse;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Product;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.ProductRepository;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.ProductService;

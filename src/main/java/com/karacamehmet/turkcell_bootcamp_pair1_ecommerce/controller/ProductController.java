@@ -1,11 +1,9 @@
 package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.controller;
 
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.dto.product.response.ProductHowManySoldResponse;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Product;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
