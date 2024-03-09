@@ -13,20 +13,20 @@ public class WishlistsItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Integer id;
+    private int id;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "wishlist_id", nullable = false)
     private Wishlist wishlistId;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "product_id", nullable = false)
     private Product productId;
 
     @NotNull
     @Column(name = "quantity", nullable = false)
-    private Integer quantity;
+    private int quantity;
 
 }
