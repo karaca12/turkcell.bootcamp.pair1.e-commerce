@@ -15,4 +15,6 @@ public interface CountryService {
     void update(Country country);
 
     void deleteById(int id);
+
+    Long getCountById();
 }

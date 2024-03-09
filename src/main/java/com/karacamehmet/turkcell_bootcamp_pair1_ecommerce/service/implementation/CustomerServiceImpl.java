@@ -3,6 +3,7 @@ package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.implementatio
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Customer;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.CustomerRepository;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.CustomerService;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.customer.response.CustomerNullOrderResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,5 +40,11 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void deleteById(int id) {
         customerRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Customer> findAllByOrdersNull() {
+
+        return customerRepository.findAllByOrdersNull();
     }
 }

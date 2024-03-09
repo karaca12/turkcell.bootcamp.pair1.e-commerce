@@ -19,4 +19,8 @@ public class CountryController {
     List<Country> getAll() {
         return countryService.getAll();
     }
+    @GetMapping("/count")
+    Long getCountById() {
+        return countryService.getCountById();
+    }
 }
