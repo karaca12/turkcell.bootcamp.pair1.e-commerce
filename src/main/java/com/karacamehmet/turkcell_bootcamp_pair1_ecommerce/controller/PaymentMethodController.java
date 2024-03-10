@@ -36,7 +36,7 @@ public class PaymentMethodController {
         paymentMethodService.deleteById(id);
     }
 
-    @GetMapping("/totaltransactions/cash")
+    @GetMapping("/totalTransactions/cash")
     int getTotalTransactionsCash() {
         return paymentMethodService.getTotalTransactionsCash();
     }

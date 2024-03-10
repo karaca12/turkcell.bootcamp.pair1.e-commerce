@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomersWithMoreThanFiveInCart {
+public class CustomersWithMoreThanFiveProductsInCartResponse {
     private int userId;
     private String customerFirstName;
     private String customerLastName;

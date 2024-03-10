@@ -22,13 +22,13 @@ public class ProductController {
     public List<Product> getAll() {
         return productService.getAll();
     }
-    @GetMapping("/raisedProducts")
-    public List<ProductPriceChangedResponse> getProductsWithRaisedPrice(){
-        return productService.getProductsWithRaisedPrice();
+    @GetMapping("/priceGoneUp")
+    public List<ProductPriceChangedResponse> getProductsWithPriceGoneUp(){
+        return productService.getProductsWithPriceGoneUp();
     }
-    @GetMapping("/discountedProducts")
-    public List<ProductPriceChangedResponse> getProductsWithDiscount(){
-        return productService.getProductsWithDiscount();
+    @GetMapping("/priceWentDown")
+    public List<ProductPriceChangedResponse> getProductsWithPriceWentDown(){
+        return productService.getProductsWithPriceWentDown();
     }
     @GetMapping("/maxPrice")
     public Product findTopByOrderByPriceDesc(){

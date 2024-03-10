@@ -3,7 +3,7 @@ package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.controller;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Customer;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.CustomerService;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.customer.response.CustomerNullOrderResponse;
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.customer.response.CustomersWithMoreThanFiveInCart;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.customer.response.CustomersWithMoreThanFiveProductsInCartResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,17 +18,17 @@ public class CustomerController {
     private CustomerService customerService;
 
     @GetMapping()
-    List<Customer> getAll(){
+    List<Customer> getAll() {
         return customerService.getAll();
     }
 
-    @GetMapping("/noOrders")
-    List<CustomerNullOrderResponse> findAllByOrdersNull(){
+    @GetMapping("/withNoOrders")
+    List<CustomerNullOrderResponse> findAllByOrdersNull() {
         return customerService.findAllByOrdersNull();
     }
 
-    @GetMapping("/morethanfiveincart")
-    List<CustomersWithMoreThanFiveInCart> getCustomersWithMoreThanFiveInCart() {
-        return customerService.getCustomersWithMoreThanFiveInCart();
+    @GetMapping("/moreThanFiveProductsInCart")
+    List<CustomersWithMoreThanFiveProductsInCartResponse> getCustomersWithMoreThanFiveProductsInCart() {
+        return customerService.getCustomersWithMoreThanFiveProductsInCart();
     }
 }

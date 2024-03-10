@@ -43,13 +43,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductPriceChangedResponse> getProductsWithRaisedPrice() {
-        return productRepository.getProductsWithRaisedPrice();
+    public List<ProductPriceChangedResponse> getProductsWithPriceGoneUp() {
+        return productRepository.getProductsWithPriceGoneUp();
     }
 
     @Override
-    public List<ProductPriceChangedResponse> getProductsWithDiscount() {
-        return productRepository.getProductsWithDiscount();
+    public List<ProductPriceChangedResponse> getProductsWithPriceWentDown() {
+        return productRepository.getProductsWithPriceWentDown();
     }
 
     @Override
