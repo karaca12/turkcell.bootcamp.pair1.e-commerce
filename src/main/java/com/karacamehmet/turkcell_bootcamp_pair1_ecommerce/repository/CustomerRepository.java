@@ -16,7 +16,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
             "WHERE u.customer.id = u.id " +
             "AND u.customer.cart.customer.id = u.customer.id " +
             "AND u.customer.cart.id = cp.cart.id " +
-            "GROUP BY (cp.cart.id, u.id, u.customer.lastName) " +
+            "GROUP BY cp.cart.id, u.id, u.customer.lastName " +
             "HAVING SUM(cp.quantity) > 5")
     List<CustomersWithMoreThanFiveProductsInCartResponse> getCustomersWithMoreThanFiveProductsInCart();
 }
