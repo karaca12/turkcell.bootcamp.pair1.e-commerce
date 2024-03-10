@@ -3,6 +3,7 @@ package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.implementatio
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Payment;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.PaymentRepository;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.PaymentService;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.paymentmethod.response.HowManyCashPaymentsResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,5 +39,10 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public void deleteById(int id) {
         paymentRepository.deleteById(id);
+    }
+
+    @Override
+    public List<HowManyCashPaymentsResponse> countPaymentsDoneWithCash() {
+        return paymentRepository.countPaymentsDoneWithCash();
     }
 }

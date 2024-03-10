@@ -20,6 +20,10 @@ public class Payment {
     @JoinColumn(name = "order_id", nullable = false)
     private Order orderId;
 
+    @ManyToOne
+    @JoinColumn(name = "payment_method_id", nullable = false)
+    private PaymentMethod paymentMethod;
+
     @Column(name = "amount", nullable = false)
     private Double amount;
 

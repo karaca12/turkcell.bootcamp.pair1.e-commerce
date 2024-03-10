@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -18,5 +20,8 @@ public class PaymentMethod {
     @NotNull
     @Column(name = "name", nullable = false, length = Integer.MAX_VALUE)
     private String name;
+
+    @OneToMany(mappedBy = "paymentMethod")
+    private List<Payment> payments;
 
 }
