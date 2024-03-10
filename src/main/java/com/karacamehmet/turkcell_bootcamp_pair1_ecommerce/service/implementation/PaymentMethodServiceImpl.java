@@ -39,4 +39,9 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
     public void deleteById(int id) {
         paymentMethodRepository.deleteById(id);
     }
+
+    @Override
+    public int getTotalTransactionsCash() {
+        return paymentMethodRepository.getTotalTransactionsCash();
+    }
 }

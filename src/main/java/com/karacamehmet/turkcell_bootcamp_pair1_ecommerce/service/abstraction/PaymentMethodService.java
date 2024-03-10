@@ -15,4 +15,6 @@ public interface PaymentMethodService {
     void update(PaymentMethod paymentMethod);
 
     void deleteById(int id);
+
+    int getTotalTransactionsCash();
 }

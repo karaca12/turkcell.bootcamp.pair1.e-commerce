@@ -35,4 +35,9 @@ public class PaymentMethodController {
     void deleteById(@PathVariable int id) {
         paymentMethodService.deleteById(id);
     }
+
+    @GetMapping("/totaltransactions/cash")
+    int getTotalTransactionsCash() {
+        return paymentMethodService.getTotalTransactionsCash();
+    }
 }
