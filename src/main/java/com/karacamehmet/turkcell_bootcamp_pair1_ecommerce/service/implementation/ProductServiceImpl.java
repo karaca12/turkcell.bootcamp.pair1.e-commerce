@@ -3,6 +3,7 @@ package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.implementatio
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Product;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.ProductRepository;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.ProductService;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.product.response.ProductPriceChangedResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,5 +41,21 @@ public class ProductServiceImpl implements ProductService {
     public void deleteById(int id) {
         productRepository.deleteById(id);
     }
+
+    @Override
+    public List<ProductPriceChangedResponse> getProductsWithRaisedPrice() {
+        return productRepository.getProductsWithRaisedPrice();
+    }
+
+    @Override
+    public List<ProductPriceChangedResponse> getProductsWithDiscount() {
+        return productRepository.getProductsWithDiscount();
+    }
+
+    @Override
+    public Product findTopByOrderByPriceDesc() {
+        return productRepository.findTopByOrderByPriceDesc();
+    }
+
 
 }

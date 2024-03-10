@@ -17,4 +17,6 @@ public interface UserService {
 
     void deleteById(int id);
     UserAddressResponse getUserAddress(int id);
+    int countByCustomerNotNull();
+   int countBySupplierNotNull();
 }

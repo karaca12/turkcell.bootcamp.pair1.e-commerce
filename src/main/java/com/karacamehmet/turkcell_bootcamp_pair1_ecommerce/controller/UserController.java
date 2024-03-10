@@ -27,4 +27,13 @@ public class UserController {
         return userService.getUserAddress(id);
     }
 
+    @GetMapping("/countofcustomers")
+    int countByCustomerNotNull(){
+        return userService.countByCustomerNotNull();
+    }
+    @GetMapping("/countofsuppliers")
+    long count(){
+        return userService.countBySupplierNotNull();
+    }
+
 }

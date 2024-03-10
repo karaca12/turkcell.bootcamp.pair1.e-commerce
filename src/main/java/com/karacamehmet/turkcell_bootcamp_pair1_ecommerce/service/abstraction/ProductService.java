@@ -2,6 +2,8 @@ package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction;
 
 
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Product;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.ProductRepository;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.product.response.ProductPriceChangedResponse;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,5 +18,8 @@ public interface ProductService {
     void update(Product product);
 
     void deleteById(int id);
+    List<ProductPriceChangedResponse> getProductsWithRaisedPrice();
+    List<ProductPriceChangedResponse> getProductsWithDiscount();
+    Product findTopByOrderByPriceDesc();
 
 }

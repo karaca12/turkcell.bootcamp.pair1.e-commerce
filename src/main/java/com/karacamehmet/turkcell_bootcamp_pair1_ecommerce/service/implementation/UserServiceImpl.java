@@ -43,4 +43,13 @@ public class UserServiceImpl implements UserService {
     public UserAddressResponse getUserAddress(int id) {
         return userRepository.getUserAddress(id);
     }
+
+    @Override
+    public int countByCustomerNotNull() {
+        return userRepository.countByCustomerNotNull();
+    }
+    public int countBySupplierNotNull(){
+        return userRepository.countBySupplierNotNull();
+    }
+
 }

@@ -29,6 +29,12 @@ public class User {
     @Column(name = "phone_number", nullable = false, length = 15)
     private String phoneNumber;
 
+    @OneToOne(mappedBy = "users", optional = true)
+    private Customer customer;
+
+    @OneToOne(mappedBy = "users", optional = true)
+    private Supplier supplier;
+
     @OneToMany(mappedBy = "userId")
     @JsonIgnore
     private List<Address> addressId;
