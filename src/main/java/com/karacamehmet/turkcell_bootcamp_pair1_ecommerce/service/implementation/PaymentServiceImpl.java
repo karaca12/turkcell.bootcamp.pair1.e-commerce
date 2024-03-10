@@ -41,8 +41,4 @@ public class PaymentServiceImpl implements PaymentService {
         paymentRepository.deleteById(id);
     }
 
-    @Override
-    public List<HowManyCashPaymentsResponse> countPaymentsDoneWithCash() {
-        return paymentRepository.countPaymentsDoneWithCash();
-    }
 }

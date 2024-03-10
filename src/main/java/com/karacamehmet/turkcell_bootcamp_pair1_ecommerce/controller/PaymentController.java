@@ -21,8 +21,4 @@ public class PaymentController {
         return paymentService.getAll();
     }
 
-    @GetMapping("/cash")
-    List<HowManyCashPaymentsResponse> countPaymentsDoneWithCash() {
-        return paymentService.countPaymentsDoneWithCash();
-    }
 }

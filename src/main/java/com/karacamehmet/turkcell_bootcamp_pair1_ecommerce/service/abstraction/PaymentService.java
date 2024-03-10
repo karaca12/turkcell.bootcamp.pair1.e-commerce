@@ -16,6 +16,4 @@ public interface PaymentService {
     void update(Payment payment);
 
     void deleteById(int id);
-
-    List<HowManyCashPaymentsResponse> countPaymentsDoneWithCash();
 }
