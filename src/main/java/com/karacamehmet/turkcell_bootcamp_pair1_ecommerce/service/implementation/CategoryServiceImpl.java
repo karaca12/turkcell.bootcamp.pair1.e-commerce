@@ -3,10 +3,12 @@ package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.implementatio
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Category;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.CategoryRepository;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.CategoryService;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.category.response.CategoryNumberOfProductsResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
@@ -39,5 +41,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void deleteById(int id) {
         categoryRepository.deleteById(id);
+    }
+
+    @Override
+    public List<CategoryNumberOfProductsResponse> getCategoriesByNumberOfProducts() {
+        return categoryRepository.getCategoriesByNumberOfProducts();
     }
 }

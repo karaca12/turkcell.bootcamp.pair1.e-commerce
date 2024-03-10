@@ -2,6 +2,7 @@ package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,5 +32,9 @@ public class Category {
     )
     @JsonIgnore
     private List<Product> products;
+
+    @NotNull
+    @OneToMany(mappedBy = "categoryId")
+    private List<CategoriesProduct> categoriesProducts;
 
 }
