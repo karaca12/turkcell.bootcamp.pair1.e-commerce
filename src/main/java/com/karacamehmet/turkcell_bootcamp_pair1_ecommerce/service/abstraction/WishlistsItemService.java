@@ -17,5 +17,5 @@ public interface WishlistsItemService {
 
     void deleteById(int id);
 
-    List<ProductsAddedToWishlistResponse> howManyAdded();
+    List<ProductsAddedToWishlistResponse> howManyProductsAdded();
 }

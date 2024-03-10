@@ -37,7 +37,7 @@ public class WishlistsItemController {
         wishlistsItemService.deleteById(id);
     }
 
-    @GetMapping("/howManyAdded")
-    public List<ProductsAddedToWishlistResponse> howManyAdded() { return wishlistsItemService.howManyAdded();}
+    @GetMapping("/howManyProductsAdded")
+    public List<ProductsAddedToWishlistResponse> howManyProductsAdded() { return wishlistsItemService.howManyProductsAdded();}
 }
 

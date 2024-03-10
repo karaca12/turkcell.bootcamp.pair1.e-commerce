@@ -43,7 +43,7 @@ public class WishlistsItemServiceImpl implements WishlistsItemService {
     }
 
     @Override
-    public List<ProductsAddedToWishlistResponse> howManyAdded() {
-        return wishlistsItemRepository.howManyAdded();
+    public List<ProductsAddedToWishlistResponse> howManyProductsAdded() {
+        return wishlistsItemRepository.howManyProductsAdded();
     }
 }

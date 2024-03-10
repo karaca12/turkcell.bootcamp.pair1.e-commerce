@@ -22,9 +22,9 @@ public class UserController {
         return userService.getAll();
     }
 
-    @GetMapping("/address/{id}")
-    UserAddressResponse getUserAddress(@PathVariable int id) {
-        return userService.getUserAddress(id);
+    @GetMapping("/address/{userId}")
+    UserAddressResponse getUserAddress(@PathVariable int userId) {
+        return userService.getUserAddress(userId);
     }
 
     @GetMapping("/countOfCustomers")

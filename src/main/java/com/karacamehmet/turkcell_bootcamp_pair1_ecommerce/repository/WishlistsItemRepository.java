@@ -12,5 +12,5 @@ import java.util.List;
 public interface WishlistsItemRepository extends JpaRepository<WishlistsItem, Integer> {
     @Query(value = "select new com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.wishlistsItem.response.ProductsAddedToWishlistResponse" +
             "(wi.productId.id, sum(wi.quantity)) from WishlistsItem wi group by wi.productId")
-    List<ProductsAddedToWishlistResponse> howManyAdded();
+    List<ProductsAddedToWishlistResponse> howManyProductsAdded();
 }
