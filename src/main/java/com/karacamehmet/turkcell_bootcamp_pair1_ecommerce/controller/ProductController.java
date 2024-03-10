@@ -22,15 +22,15 @@ public class ProductController {
     public List<Product> getAll() {
         return productService.getAll();
     }
-    @GetMapping("/raisedproducts")
+    @GetMapping("/raisedProducts")
     public List<ProductPriceChangedResponse> getProductsWithRaisedPrice(){
         return productService.getProductsWithRaisedPrice();
     }
-    @GetMapping("/discountedproducts")
+    @GetMapping("/discountedProducts")
     public List<ProductPriceChangedResponse> getProductsWithDiscount(){
         return productService.getProductsWithDiscount();
     }
-    @GetMapping("/maxprice")
+    @GetMapping("/maxPrice")
     public Product findTopByOrderByPriceDesc(){
         return productService.findTopByOrderByPriceDesc();
     }

@@ -3,10 +3,13 @@ package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.implementatio
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Wishlist;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.WishlistRepository;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.WishlistService;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.wishlist.WishlistNonUpdatedResponse;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 @Service
 public class WishlistServiceImpl implements WishlistService {
     private final WishlistRepository wishlistRepository;
@@ -38,5 +41,21 @@ public class WishlistServiceImpl implements WishlistService {
     @Override
     public void deleteById(int id) {
         wishlistRepository.deleteById(id);
+    }
+
+    @Override
+    public List<WishlistNonUpdatedResponse> nonUpdatedWishlist() {
+        List<Wishlist> wishlists = wishlistRepository.nonUpdatedWishlist();
+        List<WishlistNonUpdatedResponse> response = new ArrayList<>();
+        for (Wishlist wishlist :
+                wishlists) {
+            WishlistNonUpdatedResponse dto = new
+                    WishlistNonUpdatedResponse(wishlist.getId(),
+                    wishlist.getCustomerId().getId(),
+                    wishlist.getCustomerId().getUsers().getName(),
+                    wishlist.getCustomerId().getLastName());
+            response.add(dto);
+        }
+        return response;
     }
 }

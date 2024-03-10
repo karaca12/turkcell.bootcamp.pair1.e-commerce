@@ -2,6 +2,7 @@ package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.controller;
 
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Wishlist;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.WishlistService;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.wishlist.WishlistNonUpdatedResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,5 +35,10 @@ public class WishlistController {
     @DeleteMapping("/{id}")
     void deleteById(@PathVariable int id) {
         wishlistService.deleteById(id);
+    }
+
+    @GetMapping("/nonUpdated")
+    List<WishlistNonUpdatedResponse> nonUpdatedWishlist() {
+        return wishlistService.nonUpdatedWishlist();
     }
 }
