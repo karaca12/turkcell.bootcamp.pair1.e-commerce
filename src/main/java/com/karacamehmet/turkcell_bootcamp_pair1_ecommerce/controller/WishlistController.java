@@ -38,7 +38,7 @@ public class WishlistController {
     }
 
     @GetMapping("/nonUpdated")
-    List<WishlistNonUpdatedResponse> nonUpdatedWishlist() {
-        return wishlistService.nonUpdatedWishlist();
+    List<WishlistNonUpdatedResponse> getNonUpdatedWishlist() {
+        return wishlistService.getNonUpdatedWishlist();
     }
 }

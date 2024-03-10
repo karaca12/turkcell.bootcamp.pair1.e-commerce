@@ -44,8 +44,8 @@ public class WishlistServiceImpl implements WishlistService {
     }
 
     @Override
-    public List<WishlistNonUpdatedResponse> nonUpdatedWishlist() {
-        List<Wishlist> wishlists = wishlistRepository.nonUpdatedWishlist();
+    public List<WishlistNonUpdatedResponse> getNonUpdatedWishlist() {
+        List<Wishlist> wishlists = wishlistRepository.getNonUpdatedWishlist();
         List<WishlistNonUpdatedResponse> response = new ArrayList<>();
         for (Wishlist wishlist :
                 wishlists) {

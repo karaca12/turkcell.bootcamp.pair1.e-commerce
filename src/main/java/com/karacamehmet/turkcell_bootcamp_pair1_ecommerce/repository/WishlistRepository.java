@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface WishlistRepository extends JpaRepository<Wishlist, Integer> {
     @Query(value = "select * from wishlists where created_at = updated_at",nativeQuery = true)
-    List<Wishlist> nonUpdatedWishlist();
+    List<Wishlist> getNonUpdatedWishlist();
 }

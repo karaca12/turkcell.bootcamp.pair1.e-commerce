@@ -16,5 +16,5 @@ public interface WishlistService {
     void update(Wishlist wishlist);
 
     void deleteById(int id);
-    List<WishlistNonUpdatedResponse> nonUpdatedWishlist();
+    List<WishlistNonUpdatedResponse> getNonUpdatedWishlist();
 }
