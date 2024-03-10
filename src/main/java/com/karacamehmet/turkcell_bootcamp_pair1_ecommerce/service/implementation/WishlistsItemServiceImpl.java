@@ -3,6 +3,7 @@ package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.implementatio
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.WishlistsItem;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.WishlistsItemRepository;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.WishlistsItemService;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.wishlistsItem.response.ProductsAddedToWishlistResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,5 +40,10 @@ public class WishlistsItemServiceImpl implements WishlistsItemService {
     @Override
     public void deleteById(int id) {
         wishlistsItemRepository.deleteById(id);
+    }
+
+    @Override
+    public List<ProductsAddedToWishlistResponse> howManyAdded() {
+        return wishlistsItemRepository.howManyAdded();
     }
 }

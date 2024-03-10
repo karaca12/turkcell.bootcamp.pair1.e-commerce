@@ -1,6 +1,7 @@
 package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction;
 
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.WishlistsItem;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.wishlistsItem.response.ProductsAddedToWishlistResponse;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,4 +16,6 @@ public interface WishlistsItemService {
     void update(WishlistsItem wishlistsItem);
 
     void deleteById(int id);
+
+    List<ProductsAddedToWishlistResponse> howManyAdded();
 }
