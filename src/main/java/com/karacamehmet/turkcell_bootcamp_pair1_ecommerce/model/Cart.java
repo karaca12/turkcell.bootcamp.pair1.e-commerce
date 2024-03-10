@@ -18,9 +18,9 @@ public class Cart {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "customer_id", nullable = false)
-    private Customer customerId;
+    private Customer customer;
 
     @Column(name = "created_at", nullable = false)
     private LocalDate createdAt;

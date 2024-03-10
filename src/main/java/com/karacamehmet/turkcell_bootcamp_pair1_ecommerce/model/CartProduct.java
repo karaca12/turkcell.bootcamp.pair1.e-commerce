@@ -20,7 +20,7 @@ public class CartProduct {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "cart_id", nullable = false)
-    private Cart cartId;
+    private Cart cart;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

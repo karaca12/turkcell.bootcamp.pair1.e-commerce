@@ -2,6 +2,7 @@ package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction;
 
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Customer;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.customer.response.CustomerNullOrderResponse;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.customer.response.CustomersWithMoreThanFiveInCart;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,4 +19,6 @@ public interface CustomerService {
     void deleteById(int id);
 
     List<CustomerNullOrderResponse> findAllByOrdersNull();
+
+    List<CustomersWithMoreThanFiveInCart> getCustomersWithMoreThanFiveInCart();
 }
