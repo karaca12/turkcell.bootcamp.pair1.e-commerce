@@ -4,9 +4,9 @@ import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Address;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.District;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.User;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.AddressRepository;
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.DistrictRepository;
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.UserRepository;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.AddressService;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.DistrictService;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.UserService;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.address.request.AddAddressRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.address.request.UpdateAddressRequest;
 import org.springframework.stereotype.Service;
@@ -17,15 +17,15 @@ import java.util.Optional;
 @Service
 public class AddressServiceImpl implements AddressService {
     private final AddressRepository addressRepository;
-    private final UserRepository userRepository;
-    private final DistrictRepository districtRepository;
+    private final UserService userService;
+    private final DistrictService districtService;
 
     public AddressServiceImpl(AddressRepository addressRepository,
-                              UserRepository userRepository,
-                              DistrictRepository districtRepository) {
+                              UserService userService,
+                              DistrictService districtService) {
         this.addressRepository = addressRepository;
-        this.userRepository = userRepository;
-        this.districtRepository = districtRepository;
+        this.userService = userService;
+        this.districtService = districtService;
     }
 
     @Override
@@ -62,11 +62,11 @@ public class AddressServiceImpl implements AddressService {
     }
 
     private void findUserAndDistrictByIdAndAddItToAddress(Integer userId, Integer districtId, Address address) {
-        Optional<User> optionalUser = userRepository.findById(userId);
+        Optional<User> optionalUser = userService.getById(userId);
         User user = optionalUser.orElse(new User());
         address.setUserId(user);
 
-        Optional<District> optionalDistrict = districtRepository.findById(districtId);
+        Optional<District> optionalDistrict = districtService.getById(districtId);
         District district = optionalDistrict.orElse(new District());
         address.setDistrictId(district);
     }
