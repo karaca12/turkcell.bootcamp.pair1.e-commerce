@@ -2,6 +2,8 @@ package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.controller;
 
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Address;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.AddressService;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.address.request.AddAddressRequest;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,8 +29,8 @@ public class AddressController {
     }
 
     @PostMapping
-    void add(@RequestBody Address address) {
-        addressService.add(address);
+    void add(@RequestBody @Valid AddAddressRequest addAddressRequest) {
+        addressService.add(addAddressRequest);
     }
 
     @DeleteMapping("/{id}")

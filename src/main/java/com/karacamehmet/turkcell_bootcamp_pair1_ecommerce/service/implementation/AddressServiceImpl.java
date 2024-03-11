@@ -1,8 +1,13 @@
 package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.implementation;
 
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Address;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.District;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.User;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.AddressRepository;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.DistrictRepository;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.UserRepository;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.AddressService;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.address.request.AddAddressRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,9 +16,15 @@ import java.util.Optional;
 @Service
 public class AddressServiceImpl implements AddressService {
     private final AddressRepository addressRepository;
+    private final UserRepository userRepository;
+    private final DistrictRepository districtRepository;
 
-    public AddressServiceImpl(AddressRepository addressRepository) {
+    public AddressServiceImpl(AddressRepository addressRepository,
+                              UserRepository userRepository,
+                              DistrictRepository districtRepository) {
         this.addressRepository = addressRepository;
+        this.userRepository = userRepository;
+        this.districtRepository = districtRepository;
     }
 
     @Override
@@ -27,7 +38,12 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public void add(Address address) {
+    public void add(AddAddressRequest addAddressRequest) {
+
+        Address address = new Address();
+        address.setDetails(addAddressRequest.getDetails());
+        findUserAndDistrictByIdAndAddItToAddress(addAddressRequest.getUserId(), addAddressRequest.getDistrictId(), address);
+
         addressRepository.save(address);
     }
 
@@ -38,5 +54,15 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public void deleteById(int id) {
         addressRepository.deleteById(id);
+    }
+
+    private void findUserAndDistrictByIdAndAddItToAddress(Integer userId, Integer districtId, Address address) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        User user = optionalUser.orElse(new User());
+        address.setUserId(user);
+
+        Optional<District> optionalDistrict = districtRepository.findById(districtId);
+        District district = optionalDistrict.orElse(new District());
+        address.setDistrictId(district);
     }
 }
