@@ -1,8 +1,11 @@
 package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,5 +19,9 @@ public class Country {
 
     @Column(name = "name", nullable = false, length = 250)
     private String name;
+
+    @NotNull
+    @OneToMany(mappedBy = "countryId")
+    private List<City> cities;
 
 }

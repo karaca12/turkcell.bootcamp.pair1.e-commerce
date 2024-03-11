@@ -1,8 +1,11 @@
 package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,5 +23,9 @@ public class District {
 
     @Column(name = "name", nullable = false, length = 250)
     private String name;
+
+    @OneToMany(mappedBy = "districtId")
+    @JsonIgnore
+    private List<Address> addressId;
 
 }

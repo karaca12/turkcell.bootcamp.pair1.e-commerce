@@ -70,4 +70,13 @@ public class Product {
     @JsonIgnore
     private List<Wishlist> wishlists;
 
+    @OneToMany(mappedBy = "productId")
+    @JsonIgnore
+    private List<CartProduct> cartProducts;
+
+    @OneToMany(mappedBy = "productId")
+    @JsonIgnore
+    private List<CategoriesProduct> categoriesProducts;
+
+
 }
