@@ -3,7 +3,7 @@ package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.implementatio
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Wishlist;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.WishlistRepository;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.WishlistService;
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.wishlist.WishlistNonUpdatedResponse;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.wishlist.response.WishlistNonUpdatedResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

@@ -1,11 +1,9 @@
 package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.implementation;
 
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Shipment;
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Wishlist;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.ShipmentRepository;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.ShipmentService;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.shipment.response.ShipmentStatusOrderReceivedResponse;
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.wishlist.WishlistNonUpdatedResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

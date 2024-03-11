@@ -1,7 +1,7 @@
 package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction;
 
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Wishlist;
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.wishlist.WishlistNonUpdatedResponse;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.wishlist.response.WishlistNonUpdatedResponse;
 
 import java.util.List;
 import java.util.Optional;

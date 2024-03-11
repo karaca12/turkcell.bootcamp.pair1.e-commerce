@@ -1,4 +1,4 @@
-package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.wishlist;
+package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.wishlist.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -6,7 +6,7 @@ import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Customer;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.CartRepository;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.CartService;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.CustomerService;
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.address.response.CartGetAllResponse;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.cart.response.CartGetAllResponse;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.cart.request.CartAddRequest;
 import org.springframework.stereotype.Service;
 

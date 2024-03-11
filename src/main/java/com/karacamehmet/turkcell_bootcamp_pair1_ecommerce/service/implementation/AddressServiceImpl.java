@@ -10,8 +10,10 @@ import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.Di
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.UserService;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.address.request.AddressAddRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.address.request.AddressUpdateRequest;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.address.response.AddressGetAllResponse;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,8 +32,16 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public List<Address> getAll() {
-        return addressRepository.findAll();
+    public List<AddressGetAllResponse> getAll() {
+        List<Address> addresses = addressRepository.findAll();
+        List<AddressGetAllResponse> response = new ArrayList<>();
+        for (Address address :
+                addresses) {
+            AddressGetAllResponse dto = new AddressGetAllResponse(
+                    address.getId(), address.getDistrictId().getId(), address.getUserId().getId(), address.getDetails());
+            response.add(dto);
+        }
+        return response;
     }
 
     @Override
@@ -63,10 +73,10 @@ public class AddressServiceImpl implements AddressService {
     }
 
     private void findUserAndDistrictByIdAndAddItToAddress(Integer userId, Integer districtId, Address address) {
-        User user = userService.getById(userId).orElseThrow(()->new BusinessException("There is an issue finding the user"));
+        User user = userService.getById(userId).orElseThrow(() -> new BusinessException("There is an issue finding the user"));
         address.setUserId(user);
 
-        District district = districtService.getById(districtId).orElseThrow(()->new BusinessException("There is an issue finding the district"));
+        District district = districtService.getById(districtId).orElseThrow(() -> new BusinessException("There is an issue finding the district"));
         address.setDistrictId(district);
     }
 

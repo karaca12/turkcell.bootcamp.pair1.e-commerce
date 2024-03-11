@@ -2,7 +2,7 @@ package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.controller;
 
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Wishlist;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.WishlistService;
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.wishlist.WishlistNonUpdatedResponse;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.wishlist.response.WishlistNonUpdatedResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

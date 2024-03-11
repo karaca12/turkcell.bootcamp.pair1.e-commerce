@@ -1,7 +1,7 @@
 package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction;
 
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Cart;
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.address.response.CartGetAllResponse;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.cart.response.CartGetAllResponse;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.cart.request.CartAddRequest;
 
 import java.util.List;

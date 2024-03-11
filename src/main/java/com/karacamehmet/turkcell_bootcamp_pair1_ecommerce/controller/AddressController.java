@@ -4,6 +4,7 @@ import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Address;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.AddressService;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.address.request.AddressAddRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.address.request.AddressUpdateRequest;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.address.response.AddressGetAllResponse;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,7 @@ public class AddressController {
     }
 
     @GetMapping()
-    List<Address> getAll() {
+    List<AddressGetAllResponse> getAll() {
         return addressService.getAll();
     }
 
