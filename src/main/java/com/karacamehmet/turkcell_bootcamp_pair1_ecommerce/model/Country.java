@@ -1,5 +1,6 @@
 package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -20,8 +21,8 @@ public class Country {
     @Column(name = "name", nullable = false, length = 250)
     private String name;
 
-    @NotNull
     @OneToMany(mappedBy = "countryId")
+    @JsonIgnore
     private List<City> cities;
 
 }

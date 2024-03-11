@@ -37,4 +37,9 @@ public class Wishlist {
     @JsonIgnore
     private List<Product> products;
 
+
+    @OneToMany(mappedBy = "wishlistId")
+    @JsonIgnore
+    private List<WishlistsItem> wishlistsItems;
+
 }

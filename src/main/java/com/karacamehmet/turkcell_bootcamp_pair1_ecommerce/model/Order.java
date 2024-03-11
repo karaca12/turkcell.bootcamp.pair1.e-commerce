@@ -44,4 +44,18 @@ public class Order {
     @JsonIgnore
     private List<Product> products;
 
+    @OneToMany(mappedBy = "orderId")
+    @JsonIgnore
+    private List<OrdersProduct> ordersProducts;
+
+    @OneToMany(mappedBy = "orderId")
+    @JsonIgnore
+    private List<Payment> payments;
+
+    @OneToMany(mappedBy = "orderId")
+    @JsonIgnore
+    private List<Shipment> shipments;
+
+
+
 }

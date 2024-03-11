@@ -1,5 +1,6 @@
 package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,8 +25,15 @@ public class Customer {
     private String lastName;
 
     @OneToMany(mappedBy = "customerId")
+    @JsonIgnore
     private List<Order> orders;
 
     @OneToOne(mappedBy = "customer")
     private Cart cart;
+
+    @OneToMany(mappedBy = "customerId")
+    @JsonIgnore
+    private List<Wishlist> wishlists;
+
+
 }

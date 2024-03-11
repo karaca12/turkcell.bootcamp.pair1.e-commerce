@@ -33,8 +33,8 @@ public class Category {
     @JsonIgnore
     private List<Product> products;
 
-    @NotNull
     @OneToMany(mappedBy = "categoryId")
+    @JsonIgnore
     private List<CategoriesProduct> categoriesProducts;
 
 }

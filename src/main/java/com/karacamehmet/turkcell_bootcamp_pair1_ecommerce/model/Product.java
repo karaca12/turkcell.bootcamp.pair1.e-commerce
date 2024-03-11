@@ -78,5 +78,13 @@ public class Product {
     @JsonIgnore
     private List<CategoriesProduct> categoriesProducts;
 
+    @OneToMany(mappedBy = "productId")
+    @JsonIgnore
+    private List<OrdersProduct> ordersProducts;
+
+    @OneToMany(mappedBy = "productId")
+    @JsonIgnore
+    private List<WishlistsItem> wishlistsItems;
+
 
 }
