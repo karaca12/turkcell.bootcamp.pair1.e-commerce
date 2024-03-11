@@ -14,10 +14,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AddressAddRequest {
     @Min(1)
-    @NotBlank
     private Integer districtId;
     @Min(1)
-    @NotBlank
     private Integer userId;
     @NotBlank(message = "This field cannot be empty")
     @Size(max = 250)
