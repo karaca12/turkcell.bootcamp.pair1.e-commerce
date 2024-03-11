@@ -2,8 +2,8 @@ package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.controller;
 
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Address;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.AddressService;
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.address.request.AddAddressRequest;
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.address.request.UpdateAddressRequest;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.address.request.AddressAddRequest;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.address.request.AddressUpdateRequest;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,8 +30,8 @@ public class AddressController {
     }
 
     @PostMapping
-    void add(@RequestBody @Valid AddAddressRequest addAddressRequest) {
-        addressService.add(addAddressRequest);
+    void add(@RequestBody @Valid AddressAddRequest addressAddRequest) {
+        addressService.add(addressAddRequest);
     }
 
     @DeleteMapping("/{id}")
@@ -40,7 +40,7 @@ public class AddressController {
     }
 
     @PutMapping
-    void update(@RequestBody @Valid UpdateAddressRequest updateAddressRequest) {
-        addressService.update(updateAddressRequest);
+    void update(@RequestBody @Valid AddressUpdateRequest addressUpdateRequest) {
+        addressService.update(addressUpdateRequest);
     }
 }

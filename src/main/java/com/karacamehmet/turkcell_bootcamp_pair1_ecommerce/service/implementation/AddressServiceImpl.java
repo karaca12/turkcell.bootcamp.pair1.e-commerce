@@ -1,5 +1,6 @@
 package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.implementation;
 
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.core.exception.types.BusinessException;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Address;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.District;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.User;
@@ -7,8 +8,8 @@ import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.AddressRepo
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.AddressService;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.DistrictService;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.UserService;
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.address.request.AddAddressRequest;
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.address.request.UpdateAddressRequest;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.address.request.AddressAddRequest;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.address.request.AddressUpdateRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,21 +40,21 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public void add(AddAddressRequest addAddressRequest) {
+    public void add(AddressAddRequest addressAddRequest) {
 
         Address address = new Address();
-        address.setDetails(addAddressRequest.getDetails());
-        findUserAndDistrictByIdAndAddItToAddress(addAddressRequest.getUserId(), addAddressRequest.getDistrictId(), address);
+        address.setDetails(addressAddRequest.getDetails());
+        findUserAndDistrictByIdAndAddItToAddress(addressAddRequest.getUserId(), addressAddRequest.getDistrictId(), address);
 
         addressRepository.save(address);
     }
 
     @Override
-    public void update(UpdateAddressRequest updateAddressRequest) {
+    public void update(AddressUpdateRequest addressUpdateRequest) {
         Address address = new Address();
-        findUserAndDistrictByIdAndAddItToAddress(updateAddressRequest.getUserId(), updateAddressRequest.getDistrictId(), address);
+        findUserAndDistrictByIdAndAddItToAddress(addressUpdateRequest.getUserId(), addressUpdateRequest.getDistrictId(), address);
         addressRepository.updateDetailsByIdAndDistrictIdAndUserId(
-                updateAddressRequest.getDetails(), updateAddressRequest.getUpdatedId(), address.getDistrictId(), address.getUserId());
+                addressUpdateRequest.getDetails(), addressUpdateRequest.getUpdatedId(), address.getDistrictId(), address.getUserId());
     }
 
     @Override
@@ -62,12 +63,10 @@ public class AddressServiceImpl implements AddressService {
     }
 
     private void findUserAndDistrictByIdAndAddItToAddress(Integer userId, Integer districtId, Address address) {
-        Optional<User> optionalUser = userService.getById(userId);
-        User user = optionalUser.orElse(new User());
+        User user = userService.getById(userId).orElseThrow(()->new BusinessException("There is an issue finding the user"));
         address.setUserId(user);
 
-        Optional<District> optionalDistrict = districtService.getById(districtId);
-        District district = optionalDistrict.orElse(new District());
+        District district = districtService.getById(districtId).orElseThrow(()->new BusinessException("There is an issue finding the district"));
         address.setDistrictId(district);
     }
 

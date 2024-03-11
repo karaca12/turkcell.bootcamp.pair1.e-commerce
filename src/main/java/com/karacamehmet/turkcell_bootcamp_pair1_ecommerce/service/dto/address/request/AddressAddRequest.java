@@ -3,25 +3,23 @@ package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.address.r
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-
-@RequiredArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
-public class UpdateAddressRequest {
-    @Setter(AccessLevel.NONE)
+@AllArgsConstructor
+@NoArgsConstructor
+public class AddressAddRequest {
     @Min(1)
-    private Integer updatedId;
-    @Setter(AccessLevel.NONE)
-    @Min(1)
+    @NotBlank
     private Integer districtId;
-    @Setter(AccessLevel.NONE)
     @Min(1)
+    @NotBlank
     private Integer userId;
-    @NotBlank(message = "Details of an address cannot be empty")
+    @NotBlank(message = "This field cannot be empty")
     @Size(max = 250)
-    @NonNull
     private String details;
 }
