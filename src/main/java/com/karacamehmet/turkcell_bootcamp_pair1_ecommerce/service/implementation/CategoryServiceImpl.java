@@ -3,9 +3,11 @@ package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.implementatio
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Category;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.CategoryRepository;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.CategoryService;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.category.response.CategoryGetAllResponse;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.category.response.CategoryNumberOfProductsResponse;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,8 +21,16 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<Category> getAll() {
-        return categoryRepository.findAll();
+    public List<CategoryGetAllResponse> getAll() {
+        List<Category> categories = categoryRepository.findAll();
+        List<CategoryGetAllResponse> response = new ArrayList<>();
+        for (Category category :
+                categories) {
+            CategoryGetAllResponse dto = new CategoryGetAllResponse(
+                    category.getId(), category.getName(), category.getDescription());
+            response.add(dto);
+        }
+        return response;
     }
 
     @Override

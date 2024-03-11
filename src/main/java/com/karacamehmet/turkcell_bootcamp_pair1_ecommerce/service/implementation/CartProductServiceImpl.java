@@ -3,8 +3,10 @@ package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.implementatio
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.CartProduct;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.CartProductRepository;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.CartProductService;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.cartproducts.response.CartProductGetAllResponse;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,8 +19,18 @@ public class CartProductServiceImpl implements CartProductService {
     }
 
     @Override
-    public List<CartProduct> getAll() {
-        return cartProductRepository.findAll();
+    public List<CartProductGetAllResponse> getAll() {
+        List<CartProduct> cartProducts = cartProductRepository.findAll();
+        List<CartProductGetAllResponse> response = new ArrayList<>();
+        for (CartProduct cartProduct :
+                cartProducts) {
+            CartProductGetAllResponse dto = new CartProductGetAllResponse(
+                    cartProduct.getId(), cartProduct.getCart().getId(),
+                    cartProduct.getProductId().getId(), cartProduct.getQuantity(),
+                    cartProduct.getAddedAt());
+            response.add(dto);
+        }
+        return response;
     }
 
     @Override
