@@ -8,6 +8,7 @@ import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.DistrictRep
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.UserRepository;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.AddressService;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.address.request.AddAddressRequest;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.address.request.UpdateAddressRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,7 +49,11 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public void update(Address address) {
+    public void update(UpdateAddressRequest updateAddressRequest) {
+        Address address = new Address();
+        findUserAndDistrictByIdAndAddItToAddress(updateAddressRequest.getUserId(), updateAddressRequest.getDistrictId(), address);
+        addressRepository.updateDetailsByIdAndDistrictIdAndUserId(
+                updateAddressRequest.getDetails(), updateAddressRequest.getUpdatedId(), address.getDistrictId(), address.getUserId());
     }
 
     @Override
@@ -65,4 +70,5 @@ public class AddressServiceImpl implements AddressService {
         District district = optionalDistrict.orElse(new District());
         address.setDistrictId(district);
     }
+
 }
