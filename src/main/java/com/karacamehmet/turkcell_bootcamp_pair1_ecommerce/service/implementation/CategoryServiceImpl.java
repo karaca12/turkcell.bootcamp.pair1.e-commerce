@@ -1,8 +1,10 @@
 package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.implementation;
 
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.core.exception.types.BusinessException;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Category;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.CategoryRepository;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.CategoryService;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.category.request.CategoryAddRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.category.response.CategoryGetAllResponse;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.category.response.CategoryNumberOfProductsResponse;
 import org.springframework.stereotype.Service;
@@ -39,9 +41,16 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void add(Category category) {
+    public void add(CategoryAddRequest categoryAddRequest) {
+        categoryWithSameNameShouldNotExist(categoryAddRequest.getName());
+        Category category=new Category();
+        category.setName(categoryAddRequest.getName());
+        category.setDescription(categoryAddRequest.getDescription());
+
         categoryRepository.save(category);
     }
+
+
 
     @Override
     public void update(Category category) {
@@ -56,5 +65,12 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<CategoryNumberOfProductsResponse> getCategoriesByNumberOfProducts() {
         return categoryRepository.getCategoriesByNumberOfProducts();
+    }
+
+    private void categoryWithSameNameShouldNotExist(String name) {
+        Optional<Category> optionalCategory=categoryRepository.findByName(name);
+        if (optionalCategory.isPresent()){
+            throw new BusinessException("This category already exists");
+        }
     }
 }

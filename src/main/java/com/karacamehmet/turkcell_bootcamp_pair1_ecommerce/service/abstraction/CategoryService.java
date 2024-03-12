@@ -1,6 +1,7 @@
 package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction;
 
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Category;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.category.request.CategoryAddRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.category.response.CategoryGetAllResponse;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.category.response.CategoryNumberOfProductsResponse;
 
@@ -12,7 +13,7 @@ public interface CategoryService {
 
     Optional<Category> getById(int id);
 
-    void add(Category category);
+    void add(CategoryAddRequest categoryAddRequest);
 
     void update(Category category);
 
