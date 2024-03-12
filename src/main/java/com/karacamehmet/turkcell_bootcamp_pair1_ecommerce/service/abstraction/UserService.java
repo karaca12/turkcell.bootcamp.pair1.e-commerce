@@ -2,6 +2,7 @@ package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction;
 
 
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.User;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.user.request.UserAddRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.user.response.UserAddressResponse;
 
 import java.util.List;
@@ -13,10 +14,13 @@ public interface UserService {
 
     void add(User user);
 
+    User add(UserAddRequest userAddRequest);
+
     void update(User user);
 
     void deleteById(int id);
     UserAddressResponse getUserAddress(int id);
     int countByCustomerNotNull();
-   int countBySupplierNotNull();
+    int countBySupplierNotNull();
+    boolean userWithSameEmailExists(String email);
 }

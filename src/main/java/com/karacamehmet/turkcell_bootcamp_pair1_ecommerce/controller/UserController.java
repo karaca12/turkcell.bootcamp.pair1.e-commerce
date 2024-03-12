@@ -2,12 +2,11 @@ package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.controller;
 
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.User;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.UserService;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.user.request.UserAddRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.user.response.UserAddressResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,4 +35,8 @@ public class UserController {
         return userService.countBySupplierNotNull();
     }
 
+    @PostMapping()
+    User addUser(@RequestBody @Valid UserAddRequest userAddRequest) {
+        return userService.add(userAddRequest);
+    }
 }
