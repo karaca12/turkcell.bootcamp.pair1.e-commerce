@@ -55,7 +55,7 @@ public class ShipmentServiceImpl implements ShipmentService {
     @Override
     public void add(AddShipmentRequest addShipmentRequest) {
         if (isdeliveryDateValid(addShipmentRequest.getShippedDate(),addShipmentRequest.getEstimatedDeliveryDate())){
-            throw new BusinessException("Estimated delivery date can not be lower than Shipped date.");
+            throw new BusinessException("Estimated delivery date can not be earlier than shipped date.");
         }
         Shipment shipment=new Shipment();
         Order order=orderService.getById(addShipmentRequest.getOrderId()).orElseThrow(()->new BusinessException("Order could not founnt with id:"+addShipmentRequest.getOrderId()));
@@ -104,8 +104,8 @@ public class ShipmentServiceImpl implements ShipmentService {
     }
     public boolean isdeliveryDateValid(LocalDate shippedDate,LocalDate estimatedDate){
         if(shippedDate.compareTo(estimatedDate)>0){
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 }
