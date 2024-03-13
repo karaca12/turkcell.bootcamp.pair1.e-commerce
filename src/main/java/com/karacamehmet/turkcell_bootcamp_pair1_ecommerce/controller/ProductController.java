@@ -2,11 +2,13 @@ package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.controller;
 
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Product;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.ProductService;
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.product.response.ProductPriceChangedResponse;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.product.requests.AddProductRequest;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.product.requests.UpdateProductRequest;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.product.responses.ProductListResponse;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.product.responses.ProductPriceChangedResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,7 +21,7 @@ public class ProductController {
 
 
     @GetMapping
-    public List<Product> getAll() {
+    public List<ProductListResponse> getAll() {
         return productService.getAll();
     }
     @GetMapping("/priceGoneUp")
@@ -34,6 +36,15 @@ public class ProductController {
     public Product findTopByOrderByPriceDesc(){
         return productService.findTopByOrderByPriceDesc();
     }
+    @PostMapping("/addProduct")
+    public void add(@RequestBody @Valid AddProductRequest addProductRequest){
+        productService.add(addProductRequest);
+    }
+    @PutMapping("/updateProduct")
+    public void update(@RequestBody UpdateProductRequest updateProductRequest){
+        productService.update(updateProductRequest);
+    }
+
 
 
 }

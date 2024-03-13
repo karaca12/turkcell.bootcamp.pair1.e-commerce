@@ -1,19 +1,22 @@
 package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction;
 
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Shipment;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.shipment.requests.AddShipmentRequest;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.shipment.requests.UpdateShipmentRequest;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.shipment.response.ShipmentListResponse;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.shipment.response.ShipmentStatusOrderReceivedResponse;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface ShipmentService {
-    List<Shipment> getAll();
+    List<ShipmentListResponse> getAll();
 
-    Optional<Shipment> getById(int id);
+    ShipmentListResponse getById(int id);
 
-    void add(Shipment shipment);
+    void add(AddShipmentRequest addShipmentRequest);
 
-    void update(Shipment shipment);
+    void update(UpdateShipmentRequest updateShipmentRequest);
 
     void deleteById(int id);
     List<ShipmentStatusOrderReceivedResponse> getShipmentsByOrderReceived();

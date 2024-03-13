@@ -30,9 +30,11 @@ public class User {
     private String phoneNumber;
 
     @OneToOne(mappedBy = "users", optional = true)
+    @JsonIgnore
     private Customer customer;
 
     @OneToOne(mappedBy = "users", optional = true)
+    @JsonIgnore
     private Supplier supplier;
 
     @OneToMany(mappedBy = "userId")

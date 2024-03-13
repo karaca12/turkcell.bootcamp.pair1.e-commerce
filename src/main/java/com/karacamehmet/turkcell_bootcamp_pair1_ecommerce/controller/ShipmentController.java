@@ -2,6 +2,9 @@ package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.controller;
 
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Shipment;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.ShipmentService;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.shipment.requests.AddShipmentRequest;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.shipment.requests.UpdateShipmentRequest;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.shipment.response.ShipmentListResponse;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.shipment.response.ShipmentStatusOrderReceivedResponse;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,18 +21,18 @@ public class ShipmentController {
     }
 
     @GetMapping()
-    List<Shipment> getAll() {
+    List<ShipmentListResponse> getAll() {
         return shipmentService.getAll();
     }
 
     @GetMapping("/{id}")
-    Optional<Shipment> getById(@PathVariable int id) {
+    ShipmentListResponse getById(@PathVariable int id) {
         return shipmentService.getById(id);
     }
 
     @PostMapping
-    void add(@RequestBody Shipment shipment) {
-        shipmentService.add(shipment);
+    void add(@RequestBody AddShipmentRequest addShipmentRequest) {
+        shipmentService.add(addShipmentRequest);
     }
 
     @DeleteMapping("/{id}")
@@ -40,5 +43,9 @@ public class ShipmentController {
     @GetMapping("/getShipmentsByOrderReceived")
     List<ShipmentStatusOrderReceivedResponse> getShipmentsByOrderReceived() {
         return shipmentService.getShipmentsByOrderReceived();
+    }
+    @PutMapping("/update")
+    public void update(@RequestBody UpdateShipmentRequest updateShipmentRequest){
+        shipmentService.update(updateShipmentRequest);
     }
 }

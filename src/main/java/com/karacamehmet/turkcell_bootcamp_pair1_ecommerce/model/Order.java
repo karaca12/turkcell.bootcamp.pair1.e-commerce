@@ -20,10 +20,12 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
+    @JsonIgnore
     private Customer customerId;
 
     @ManyToOne
     @JoinColumn(name = "address_id", nullable = false)
+    @JsonIgnore
     private Address addressId;
 
     @Column(name = "order_date", nullable = false)
