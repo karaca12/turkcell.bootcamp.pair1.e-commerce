@@ -1,6 +1,6 @@
 package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction;
 
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.product.response.ProductHowManySoldResponse;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.product.responses.ProductHowManySoldResponse;
 
 import java.util.List;
 
