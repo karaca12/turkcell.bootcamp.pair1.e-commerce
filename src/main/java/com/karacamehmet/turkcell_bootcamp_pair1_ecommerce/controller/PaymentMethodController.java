@@ -2,6 +2,9 @@ package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.controller;
 
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.PaymentMethod;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.PaymentMethodService;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.paymentmethod.request.PaymentMethodAddRequest;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.paymentmethod.response.PaymentMethodGetAllResponse;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +20,7 @@ public class PaymentMethodController {
     }
 
     @GetMapping()
-    List<PaymentMethod> getAll() {
+    List<PaymentMethodGetAllResponse> getAll() {
         return paymentMethodService.getAll();
     }
 
@@ -27,8 +30,8 @@ public class PaymentMethodController {
     }
 
     @PostMapping
-    void add(@RequestBody PaymentMethod paymentMethod) {
-        paymentMethodService.add(paymentMethod);
+    void add(@RequestBody @Valid PaymentMethodAddRequest paymentMethodAddRequest) {
+        paymentMethodService.add(paymentMethodAddRequest);
     }
 
     @DeleteMapping("/{id}")

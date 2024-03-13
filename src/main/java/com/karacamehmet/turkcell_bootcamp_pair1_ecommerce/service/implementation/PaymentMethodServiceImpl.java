@@ -3,10 +3,14 @@ package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.implementatio
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.PaymentMethod;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.PaymentMethodRepository;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.PaymentMethodService;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.paymentmethod.request.PaymentMethodAddRequest;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.paymentmethod.response.PaymentMethodGetAllResponse;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 @Service
 public class PaymentMethodServiceImpl implements PaymentMethodService {
     private final PaymentMethodRepository paymentMethodRepository;
@@ -16,8 +20,14 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
     }
 
     @Override
-    public List<PaymentMethod> getAll() {
-        return paymentMethodRepository.findAll();
+    public List<PaymentMethodGetAllResponse> getAll() {
+        List<PaymentMethod> paymentMethods = paymentMethodRepository.findAll();
+        List<PaymentMethodGetAllResponse> response = new ArrayList<>();
+        for (PaymentMethod paymentMethod : paymentMethods) {
+            PaymentMethodGetAllResponse dto = new PaymentMethodGetAllResponse(paymentMethod.getId(), paymentMethod.getName());
+            response.add(dto);
+        }
+        return response;
     }
 
     @Override
@@ -26,13 +36,14 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
     }
 
     @Override
-    public void add(PaymentMethod paymentMethod) {
+    public void add(PaymentMethodAddRequest paymentMethodAddRequest) {
+        PaymentMethod paymentMethod = new PaymentMethod();
+        paymentMethod.setName(paymentMethodAddRequest.getName());
         paymentMethodRepository.save(paymentMethod);
     }
 
     @Override
     public void update(PaymentMethod paymentMethod) {
-
     }
 
     @Override

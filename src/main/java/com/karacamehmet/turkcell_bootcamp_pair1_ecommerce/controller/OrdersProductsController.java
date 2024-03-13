@@ -1,12 +1,12 @@
 package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.controller;
 
 
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.product.response.ProductHowManySoldResponse;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.OrdersProductService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.ordersproduct.request.OrdersProductAddRequest;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.ordersproduct.response.OrdersProductGetAllResponse;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.product.response.ProductHowManySoldResponse;
+import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,6 +19,11 @@ public class OrdersProductsController {
         this.ordersProductService = ordersProductService;
     }
 
+    @GetMapping
+    public List<OrdersProductGetAllResponse> getAll() {
+        return ordersProductService.getAll();
+    }
+
     @GetMapping("/howManySoldById/{id}")
     public int howManySoldById(@PathVariable int id) {
         return ordersProductService.howManySoldById(id);
@@ -27,5 +32,10 @@ public class OrdersProductsController {
     @GetMapping("/howManySold")
     public List<ProductHowManySoldResponse> howManySold() {
         return ordersProductService.howManySold();
+    }
+
+    @PostMapping
+    void add(@RequestBody @Valid OrdersProductAddRequest ordersProductAddRequest) {
+        ordersProductService.add(ordersProductAddRequest);
     }
 }
