@@ -16,6 +16,7 @@ public interface AddressService {
     void add(AddressAddRequest addressAddRequest);
 
     void update(AddressUpdateRequest addressUpdateRequest);
+    void updateDetail(AddressUpdateRequest addressUpdateRequest);
 
     void deleteById(int id);
 }

@@ -2,46 +2,29 @@ package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.implementatio
 
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.core.exception.types.BusinessException;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Address;
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.District;
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.User;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.AddressRepository;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.AddressService;
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.DistrictService;
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.UserService;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.address.request.AddressAddRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.address.request.AddressUpdateRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.address.response.AddressGetAllResponse;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.mapper.AddressMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class AddressServiceImpl implements AddressService {
     private final AddressRepository addressRepository;
-    private final UserService userService;
-    private final DistrictService districtService;
 
-    public AddressServiceImpl(AddressRepository addressRepository,
-                              UserService userService,
-                              DistrictService districtService) {
+    public AddressServiceImpl(AddressRepository addressRepository) {
         this.addressRepository = addressRepository;
-        this.userService = userService;
-        this.districtService = districtService;
     }
 
     @Override
     public List<AddressGetAllResponse> getAll() {
         List<Address> addresses = addressRepository.findAll();
-        List<AddressGetAllResponse> response = new ArrayList<>();
-        for (Address address :
-                addresses) {
-            AddressGetAllResponse dto = new AddressGetAllResponse(
-                    address.getId(), address.getDistrictId().getId(), address.getUserId().getId(), address.getDetails());
-            response.add(dto);
-        }
-        return response;
+        return AddressMapper.INSTANCE.addressGetAllResponseListFromAddressList(addresses);
     }
 
     @Override
@@ -52,32 +35,29 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public void add(AddressAddRequest addressAddRequest) {
 
-        Address address = new Address();
-        address.setDetails(addressAddRequest.getDetails());
-        findUserAndDistrictByIdAndAddItToAddress(addressAddRequest.getUserId(), addressAddRequest.getDistrictId(), address);
+        Address address = AddressMapper.INSTANCE.addressFromAddRequest(addressAddRequest);
 
         addressRepository.save(address);
     }
 
     @Override
     public void update(AddressUpdateRequest addressUpdateRequest) {
-        Address address = new Address();
-        findUserAndDistrictByIdAndAddItToAddress(addressUpdateRequest.getUserId(), addressUpdateRequest.getDistrictId(), address);
+        addressRepository.findById(addressUpdateRequest.getUpdatedId()).orElseThrow(() -> new BusinessException("Address with this id doesn't exist"));
+        Address address = AddressMapper.INSTANCE.addressFromUpdateRequest(addressUpdateRequest);
+        addressRepository.save(address);
+    }
+
+    @Override
+    public void updateDetail(AddressUpdateRequest addressUpdateRequest) {
+        Address address = AddressMapper.INSTANCE.addressFromUpdateRequest(addressUpdateRequest);
         addressRepository.updateDetailsByIdAndDistrictIdAndUserId(
                 addressUpdateRequest.getDetails(), addressUpdateRequest.getUpdatedId(), address.getDistrictId(), address.getUserId());
     }
 
+
     @Override
     public void deleteById(int id) {
         addressRepository.deleteById(id);
-    }
-
-    private void findUserAndDistrictByIdAndAddItToAddress(Integer userId, Integer districtId, Address address) {
-        User user = userService.getById(userId).orElseThrow(() -> new BusinessException("There is an issue finding the user"));
-        address.setUserId(user);
-
-        District district = districtService.getById(districtId).orElseThrow(() -> new BusinessException("There is an issue finding the district"));
-        address.setDistrictId(district);
     }
 
 }

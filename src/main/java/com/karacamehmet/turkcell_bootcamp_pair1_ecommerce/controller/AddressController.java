@@ -44,4 +44,9 @@ public class AddressController {
     void update(@RequestBody @Valid AddressUpdateRequest addressUpdateRequest) {
         addressService.update(addressUpdateRequest);
     }
+
+    @PutMapping("/detail")
+    void updateDetail(@RequestBody @Valid AddressUpdateRequest addressUpdateRequest) {
+        addressService.updateDetail(addressUpdateRequest);
+    }
 }
