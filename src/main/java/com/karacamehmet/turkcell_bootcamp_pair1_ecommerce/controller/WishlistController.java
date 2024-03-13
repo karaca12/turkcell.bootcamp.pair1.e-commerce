@@ -30,8 +30,8 @@ public class WishlistController {
     }
 
     @PostMapping
-    void add(@RequestBody @Valid AddWishlistRequest wishlist) {
-        wishlistService.add(wishlist);
+    Wishlist add(@RequestBody @Valid AddWishlistRequest wishlist) {
+        return wishlistService.add(wishlist);
     }
 
     @DeleteMapping("/{id}")

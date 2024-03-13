@@ -12,7 +12,7 @@ public interface WishlistService {
 
     Optional<Wishlist> getById(int id);
 
-    void add(AddWishlistRequest wishlist);
+    Wishlist add(AddWishlistRequest wishlist);
 
     void update(Wishlist wishlist);
 

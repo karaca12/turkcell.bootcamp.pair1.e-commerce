@@ -29,6 +29,7 @@ public class Customer {
     private List<Order> orders;
 
     @OneToOne(mappedBy = "customer")
+    @JsonIgnore
     private Cart cart;
 
     @OneToMany(mappedBy = "customerId")

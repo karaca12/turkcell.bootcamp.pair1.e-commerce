@@ -9,11 +9,10 @@ import lombok.Getter;
 
 @Getter
 public class AddWishlistsItemRequest {
-    private int id;
-    @NotNull
-    private Wishlist wishlistId;
-    @NotNull
-    private Product productId;
+    @Min(0)
+    private int wishlistId;
+    @Min(0)
+    private int productId;
     @Min(1)
     private int quantity;
 }

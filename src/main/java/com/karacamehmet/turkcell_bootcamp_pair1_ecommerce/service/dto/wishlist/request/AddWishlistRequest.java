@@ -8,10 +8,8 @@ import java.time.LocalDate;
 
 @Getter
 public class AddWishlistRequest {
-    private Integer id;
-
     @NotNull
-    private Customer customerId;
+    private int customerId;
 
     private LocalDate createdAt;
 

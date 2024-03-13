@@ -1,10 +1,13 @@
 package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.implementation;
 
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Customer;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Wishlist;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.CustomerRepository;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.WishlistRepository;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.WishlistService;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.wishlist.request.AddWishlistRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.wishlist.response.WishlistNonUpdatedResponse;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,9 +17,11 @@ import java.util.Optional;
 @Service
 public class WishlistServiceImpl implements WishlistService {
     private final WishlistRepository wishlistRepository;
+    private final CustomerRepository customerRepository;
 
-    public WishlistServiceImpl(WishlistRepository wishlistRepository) {
+    public WishlistServiceImpl(WishlistRepository wishlistRepository, CustomerRepository customerRepository) {
         this.wishlistRepository = wishlistRepository;
+        this.customerRepository = customerRepository;
     }
 
     @Override
@@ -30,13 +35,15 @@ public class WishlistServiceImpl implements WishlistService {
     }
 
     @Override
-    public void add(AddWishlistRequest wishlist) {
+    public Wishlist add(AddWishlistRequest wishlist) {
+        Customer customer = customerRepository.findById(wishlist.getCustomerId())
+                .orElseThrow(() -> new EntityNotFoundException("Customer not found"));
         Wishlist newWishlist = new Wishlist();
         // No business rule to check?
-        newWishlist.setCustomerId(wishlist.getCustomerId());
+        newWishlist.setCustomerId(customer);
         newWishlist.setCreatedAt(wishlist.getCreatedAt());
         newWishlist.setUpdatedAt(wishlist.getUpdatedAt());
-        wishlistRepository.save(newWishlist);
+        return wishlistRepository.save(newWishlist);
     }
 
     @Override
