@@ -1,6 +1,7 @@
 package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction;
 
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.WishlistsItem;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.wishlistsItem.request.AddWishlistsItemRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.wishlistsItem.response.ProductsAddedToWishlistResponse;
 
 import java.util.List;
@@ -11,7 +12,7 @@ public interface WishlistsItemService {
 
     Optional<WishlistsItem> getById(int id);
 
-    void add(WishlistsItem wishlistsItem);
+    void add(AddWishlistsItemRequest wishlistsItem);
 
     void update(WishlistsItem wishlistsItem);
 

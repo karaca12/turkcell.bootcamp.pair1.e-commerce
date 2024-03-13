@@ -3,6 +3,7 @@ package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.implementatio
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.WishlistsItem;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.WishlistsItemRepository;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.WishlistsItemService;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.wishlistsItem.request.AddWishlistsItemRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.wishlistsItem.response.ProductsAddedToWishlistResponse;
 import org.springframework.stereotype.Service;
 
@@ -28,8 +29,12 @@ public class WishlistsItemServiceImpl implements WishlistsItemService {
     }
 
     @Override
-    public void add(WishlistsItem wishlistsItem) {
-        wishlistsItemRepository.save(wishlistsItem);
+    public void add(AddWishlistsItemRequest wishlistsItem) {
+        WishlistsItem newWishlistsItem = new WishlistsItem();
+        newWishlistsItem.setWishlistId(wishlistsItem.getWishlistId());
+        newWishlistsItem.setQuantity(wishlistsItem.getQuantity());
+        newWishlistsItem.setProductId(wishlistsItem.getProductId());
+        wishlistsItemRepository.save(newWishlistsItem);
     }
 
     @Override

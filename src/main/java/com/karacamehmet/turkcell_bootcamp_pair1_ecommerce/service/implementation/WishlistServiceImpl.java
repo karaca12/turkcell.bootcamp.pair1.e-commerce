@@ -3,6 +3,7 @@ package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.implementatio
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Wishlist;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.WishlistRepository;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.WishlistService;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.wishlist.request.AddWishlistRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.wishlist.response.WishlistNonUpdatedResponse;
 import org.springframework.stereotype.Service;
 
@@ -29,8 +30,13 @@ public class WishlistServiceImpl implements WishlistService {
     }
 
     @Override
-    public void add(Wishlist wishlist) {
-        wishlistRepository.save(wishlist);
+    public void add(AddWishlistRequest wishlist) {
+        Wishlist newWishlist = new Wishlist();
+        // No business rule to check?
+        newWishlist.setCustomerId(wishlist.getCustomerId());
+        newWishlist.setCreatedAt(wishlist.getCreatedAt());
+        newWishlist.setUpdatedAt(wishlist.getUpdatedAt());
+        wishlistRepository.save(newWishlist);
     }
 
     @Override

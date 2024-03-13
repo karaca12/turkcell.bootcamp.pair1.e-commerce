@@ -2,7 +2,9 @@ package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.controller;
 
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.WishlistsItem;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.WishlistsItemService;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.wishlistsItem.request.AddWishlistsItemRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.wishlistsItem.response.ProductsAddedToWishlistResponse;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,7 +30,7 @@ public class WishlistsItemController {
     }
 
     @PostMapping
-    void add(@RequestBody WishlistsItem wishlistsItem) {
+    void add(@RequestBody @Valid AddWishlistsItemRequest wishlistsItem) {
         wishlistsItemService.add(wishlistsItem);
     }
 
