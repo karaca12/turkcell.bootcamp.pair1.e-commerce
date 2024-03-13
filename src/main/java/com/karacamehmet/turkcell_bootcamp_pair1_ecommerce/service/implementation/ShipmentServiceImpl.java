@@ -12,6 +12,7 @@ import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.shipment.r
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.shipment.response.ShipmentStatusOrderReceivedResponse;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -53,6 +54,9 @@ public class ShipmentServiceImpl implements ShipmentService {
 
     @Override
     public void add(AddShipmentRequest addShipmentRequest) {
+        if (isdeliveryDateValid(addShipmentRequest.getShippedDate(),addShipmentRequest.getEstimatedDeliveryDate())){
+            throw new BusinessException("Estimated delivery date can not be lower than Shipped date.");
+        }
         Shipment shipment=new Shipment();
         Order order=orderService.getById(addShipmentRequest.getOrderId()).orElseThrow(()->new BusinessException("Order could not founnt with id:"+addShipmentRequest.getOrderId()));
         shipment.setId(addShipmentRequest.getId());
@@ -81,6 +85,8 @@ public class ShipmentServiceImpl implements ShipmentService {
 
     @Override
     public List<ShipmentStatusOrderReceivedResponse> getShipmentsByOrderReceived() {
+
+
         List<Shipment> shipments = shipmentRepository.getShipmentsByOrderReceived();
         List<ShipmentStatusOrderReceivedResponse> response = new ArrayList<>();
         for (Shipment shipment :
@@ -95,5 +101,11 @@ public class ShipmentServiceImpl implements ShipmentService {
             response.add(dto);
         }
         return response;
+    }
+    public boolean isdeliveryDateValid(LocalDate shippedDate,LocalDate estimatedDate){
+        if(shippedDate.compareTo(estimatedDate)>0){
+            return false;
+        }
+        return true;
     }
 }
