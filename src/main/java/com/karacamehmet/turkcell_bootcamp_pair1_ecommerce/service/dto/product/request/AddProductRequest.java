@@ -1,4 +1,4 @@
-package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.product.requests;
+package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.product.request;
 
 
 import jakarta.validation.constraints.Min;
@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.validator.constraints.Length;
 
 @Getter
 @Setter

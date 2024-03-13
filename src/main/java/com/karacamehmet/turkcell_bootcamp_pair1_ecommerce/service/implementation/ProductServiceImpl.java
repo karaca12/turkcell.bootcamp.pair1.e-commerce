@@ -2,14 +2,12 @@ package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.implementatio
 
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.core.exception.types.BusinessException;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Product;
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.User;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.ProductRepository;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.ProductService;
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.UserService;
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.product.requests.AddProductRequest;
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.product.requests.UpdateProductRequest;
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.product.responses.ProductListResponse;
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.product.responses.ProductPriceChangedResponse;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.product.request.AddProductRequest;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.product.request.UpdateProductRequest;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.product.response.ProductListResponse;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.product.response.ProductPriceChangedResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

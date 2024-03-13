@@ -6,7 +6,6 @@ import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.User;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.SupplierRepository;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.SupplierService;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.UserService;
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.product.requests.AddProductRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.supplier.requests.AddSupplierRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.supplier.requests.UpdateSupplierRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.supplier.responses.SupplierListResponse;

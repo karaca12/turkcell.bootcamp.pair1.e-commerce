@@ -1,4 +1,4 @@
-package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.product.requests;
+package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.product.request;
 
 
 import jakarta.validation.constraints.Min;
