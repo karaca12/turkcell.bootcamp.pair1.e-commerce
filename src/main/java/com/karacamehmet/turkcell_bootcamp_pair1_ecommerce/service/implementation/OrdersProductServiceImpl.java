@@ -1,6 +1,6 @@
 package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.implementation;
 
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.product.responses.ProductHowManySoldResponse;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.product.response.ProductHowManySoldResponse;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.OrdersProductRepository;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.OrdersProductService;
 import org.springframework.stereotype.Service;
