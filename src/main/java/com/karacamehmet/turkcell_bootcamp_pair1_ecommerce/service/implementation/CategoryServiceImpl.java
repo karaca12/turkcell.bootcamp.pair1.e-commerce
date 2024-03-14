@@ -7,9 +7,9 @@ import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.Ca
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.category.request.CategoryAddRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.category.response.CategoryGetAllResponse;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.category.response.CategoryNumberOfProductsResponse;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.mapper.CategoryMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,14 +25,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<CategoryGetAllResponse> getAll() {
         List<Category> categories = categoryRepository.findAll();
-        List<CategoryGetAllResponse> response = new ArrayList<>();
-        for (Category category :
-                categories) {
-            CategoryGetAllResponse dto = new CategoryGetAllResponse(
-                    category.getId(), category.getName(), category.getDescription());
-            response.add(dto);
-        }
-        return response;
+        return CategoryMapper.INSTANCE.categoryGetAllResponseListFromCategoryList(categories);
     }
 
     @Override
@@ -43,13 +36,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void add(CategoryAddRequest categoryAddRequest) {
         categoryWithSameNameShouldNotExist(categoryAddRequest.getName());
-        Category category=new Category();
-        category.setName(categoryAddRequest.getName());
-        category.setDescription(categoryAddRequest.getDescription());
-
+        Category category = CategoryMapper.INSTANCE.categoryFromAddRequest(categoryAddRequest);
         categoryRepository.save(category);
     }
-
 
 
     @Override
@@ -68,8 +57,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     private void categoryWithSameNameShouldNotExist(String name) {
-        Optional<Category> optionalCategory=categoryRepository.findByName(name);
-        if (optionalCategory.isPresent()){
+        Optional<Category> optionalCategory = categoryRepository.findByName(name);
+        if (optionalCategory.isPresent()) {
             throw new BusinessException("This category already exists");
         }
     }

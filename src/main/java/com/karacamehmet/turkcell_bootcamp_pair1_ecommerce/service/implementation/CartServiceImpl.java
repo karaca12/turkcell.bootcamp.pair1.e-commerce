@@ -8,9 +8,9 @@ import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.Ca
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.CustomerService;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.cart.response.CartGetAllResponse;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.cart.request.CartAddRequest;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.mapper.CartMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,14 +27,7 @@ public class CartServiceImpl implements CartService {
     @Override
     public List<CartGetAllResponse> getAll() {
         List<Cart> carts = cartRepository.findAll();
-        List<CartGetAllResponse> response = new ArrayList<>();
-        for (Cart cart :
-                carts) {
-            CartGetAllResponse dto = new CartGetAllResponse(
-                    cart.getId(), cart.getCustomer().getId(), cart.getCreatedAt(), cart.getUpdatedAt());
-            response.add(dto);
-        }
-        return response;
+        return CartMapper.INSTANCE.cartGetAllResponseListFromCartList(carts);
     }
 
     @Override
@@ -44,10 +37,8 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public void add(CartAddRequest cartAddRequest) {
-        Cart cart = new Cart();
-        cart.setCreatedAt(cartAddRequest.getCreatedAt());
-        cart.setUpdatedAt(cartAddRequest.getUpdatedAt());
-        findCustomerByIdAndAddItToCart(cartAddRequest.getCustomerId(), cart);
+        checkIfCustomerAlreadyHasCart(cartAddRequest.getCustomerId());
+        Cart cart = CartMapper.INSTANCE.cartFromAddRequest(cartAddRequest);
         cartRepository.save(cart);
     }
 
@@ -62,8 +53,12 @@ public class CartServiceImpl implements CartService {
         cartRepository.deleteById(id);
     }
 
-    private void findCustomerByIdAndAddItToCart(Integer customerId, Cart cart) {
-        Customer customer = customerService.getById(customerId).orElseThrow(() -> new BusinessException("There is already a cart with this customer"));
-        cart.setCustomer(customer);
+    private void checkIfCustomerAlreadyHasCart(Integer customerId) {
+        Optional<Customer> customerOptional = customerService.getById(customerId);
+        customerOptional.ifPresent(customer -> {
+            if (cartRepository.findByCustomer(customer).isPresent()) {
+                throw new BusinessException("There is already a cart with this customer");
+            }
+        });
     }
 }
