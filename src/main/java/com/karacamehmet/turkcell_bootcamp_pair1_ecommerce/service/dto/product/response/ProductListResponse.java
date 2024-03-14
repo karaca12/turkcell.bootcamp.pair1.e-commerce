@@ -14,6 +14,5 @@ import java.util.List;
 public class ProductListResponse {
     private Integer id;
     private String name;
-    private List<Integer> categoryIds;
-    private double price;
+    private Double price;
 }

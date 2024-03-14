@@ -9,6 +9,7 @@ import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.Us
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.supplier.requests.AddSupplierRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.supplier.requests.UpdateSupplierRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.supplier.responses.SupplierListResponse;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.mapper.SupplierMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,13 +25,8 @@ public class SupplierServiceImpl implements SupplierService {
     @Override
     public List<SupplierListResponse> getAll() {
         List<Supplier> suppliers=supplierRepository.findAll();
-        List<SupplierListResponse> supplierListResponses=new ArrayList<>();
-        for (Supplier i:suppliers){
-            User user= userService.getById(i.getId()).orElseThrow(()-> new BusinessException("User not found with id "+i.getId()));
-            SupplierListResponse dto=new SupplierListResponse(i.getId(),user.getName(),user.getEmail(),user.getPhoneNumber(),i.getTaxNo(),i.getRating());
-            supplierListResponses.add(dto);
-        }
-        return supplierListResponses;
+
+        return SupplierMapper.INSTANCE.supplierGetAllResponseListFromSupplierList(suppliers);
     }
 
     @Override
@@ -41,10 +37,9 @@ public class SupplierServiceImpl implements SupplierService {
     @Override
     public void add(AddSupplierRequest addSupplierRequest) {
         User user= userService.getById(addSupplierRequest.getUserId()).orElseThrow(()-> new BusinessException("User not found with id "+addSupplierRequest.getUserId()));
-        Supplier supplier=new Supplier();
+        Supplier supplier=SupplierMapper.INSTANCE.supplierFromAddRequest(addSupplierRequest);
         supplier.setUsers(user);
-        supplier.setRating(addSupplierRequest.getRating());
-        supplier.setTaxNo(addSupplierRequest.getTaxNo());
+
 
         supplierRepository.save(supplier);
     }
@@ -52,9 +47,7 @@ public class SupplierServiceImpl implements SupplierService {
     @Override
     public void update(UpdateSupplierRequest updateSupplierRequest)
     {
-        Supplier supplier=supplierRepository.findById(updateSupplierRequest.getUserId()).orElseThrow(()-> new BusinessException("Supplier not found with id "+updateSupplierRequest.getUserId()));
-        supplier.setTaxNo(updateSupplierRequest.getTaxNo());
-        supplier.setRating(updateSupplierRequest.getRating());
+        Supplier supplier=SupplierMapper.INSTANCE.supplierFromUpdateRequest(updateSupplierRequest);
         supplierRepository.save(supplier);
 
     }

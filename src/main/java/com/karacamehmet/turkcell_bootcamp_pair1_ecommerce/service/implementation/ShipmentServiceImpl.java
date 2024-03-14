@@ -10,6 +10,7 @@ import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.shipment.r
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.shipment.requests.UpdateShipmentRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.shipment.response.ShipmentListResponse;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.shipment.response.ShipmentStatusOrderReceivedResponse;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.mapper.ShipmentMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -30,51 +31,33 @@ public class ShipmentServiceImpl implements ShipmentService {
     public List<ShipmentListResponse> getAll() {
         List<Shipment> shipments= shipmentRepository.findAll();
 
-        List<ShipmentListResponse> shipmentListResponses=new ArrayList<>();
-        for(Shipment i:shipments){
 
-            ShipmentListResponse shipmentListResponse=new ShipmentListResponse(i.getId(),i.getOrderId().getId(),i.getShippedDate(),i.getEstimatedDeliveryDate(),i.getStatus());
-            shipmentListResponses.add(shipmentListResponse);
-        }
-        return shipmentListResponses;
+        return ShipmentMapper.INSTANCE.shipmentGetAllResponseListFromShipmentList(shipments);
     }
 
     @Override
     public ShipmentListResponse getById(int id) {
         Shipment shipment=shipmentRepository.findById(id).orElseThrow(()->new BusinessException("There is no shipment with id:"+id));
-        ShipmentListResponse shipmentListResponse=new ShipmentListResponse();
-        shipmentListResponse.setShipmentId(shipment.getId());
-        shipmentListResponse.setOrderId(shipment.getOrderId().getId());
-        shipmentListResponse.setShippedDate(shipment.getShippedDate());
-        shipmentListResponse.setStatus(shipment.getStatus());
-        shipmentListResponse.setEstimatedDeliveryDate(shipment.getEstimatedDeliveryDate());
 
-        return shipmentListResponse;
+
+        return ShipmentMapper.INSTANCE.shipmentGetAllResponseFromShipment(shipment);
     }
 
     @Override
     public void add(AddShipmentRequest addShipmentRequest) {
-        if (isdeliveryDateValid(addShipmentRequest.getShippedDate(),addShipmentRequest.getEstimatedDeliveryDate())){
+        if (!isDeliveryDateValid(addShipmentRequest.getShippedDate(),addShipmentRequest.getEstimatedDeliveryDate())){
             throw new BusinessException("Estimated delivery date can not be earlier than shipped date.");
         }
-        Shipment shipment=new Shipment();
-        Order order=orderService.getById(addShipmentRequest.getOrderId()).orElseThrow(()->new BusinessException("Order could not founnt with id:"+addShipmentRequest.getOrderId()));
-        shipment.setId(addShipmentRequest.getId());
-        shipment.setOrderId(order);
-        shipment.setStatus(addShipmentRequest.getStatus());
-        shipment.setEstimatedDeliveryDate(addShipmentRequest.getEstimatedDeliveryDate());
-        shipment.setShippedDate(addShipmentRequest.getShippedDate());
+        Shipment shipment=ShipmentMapper.INSTANCE.shipmentFromAddRequest(addShipmentRequest);
         shipmentRepository.save(shipment);
     }
 
     @Override
     public void update(UpdateShipmentRequest updateShipmentRequest) {
-        Shipment shipment=shipmentRepository.findById(updateShipmentRequest.getId()).orElseThrow(()->new BusinessException("Shipment not found with id:"+updateShipmentRequest.getId()));
-        Order order=orderService.getById(updateShipmentRequest.getOrderId()).orElseThrow(()-> new BusinessException("Order coulld not found with id"+updateShipmentRequest.getOrderId()));
-        shipment.setStatus(updateShipmentRequest.getStatus());
-        shipment.setShippedDate(updateShipmentRequest.getShippedDate());
-        shipment.setEstimatedDeliveryDate(updateShipmentRequest.getEstimatedDeliveryDate());
-        shipment.setOrderId(order);
+        if(shipmentRepository.findById(updateShipmentRequest.getId()).isEmpty()){
+            throw new BusinessException("Shipment not found with id:"+updateShipmentRequest.getId());
+        }
+        Shipment shipment=ShipmentMapper.INSTANCE.shipmentFromUpdateRequest(updateShipmentRequest);
         shipmentRepository.save(shipment);
     }
 
@@ -88,24 +71,14 @@ public class ShipmentServiceImpl implements ShipmentService {
 
 
         List<Shipment> shipments = shipmentRepository.getShipmentsByOrderReceived();
-        List<ShipmentStatusOrderReceivedResponse> response = new ArrayList<>();
-        for (Shipment shipment :
-                shipments) {
-            ShipmentStatusOrderReceivedResponse dto = new
-                    ShipmentStatusOrderReceivedResponse(shipment.getId(),
-                    shipment.getOrderId().getId(),
-                    shipment.getOrderId().getCustomerId().getId(),
-                    shipment.getShippedDate(),
-                    shipment.getEstimatedDeliveryDate(),
-                    shipment.getStatus());
-            response.add(dto);
-        }
-        return response;
+
+        return ShipmentMapper.INSTANCE.GetAllOrderRecievedFromShipment(shipments);
     }
-    public boolean isdeliveryDateValid(LocalDate shippedDate,LocalDate estimatedDate){
-        if(shippedDate.compareTo(estimatedDate)>0){
-            return true;
+
+    public boolean isDeliveryDateValid(LocalDate shippedDate,LocalDate estimatedDate){
+        if(shippedDate.isAfter(estimatedDate)){
+            return false;
         }
-        return false;
+        return true;
     }
 }

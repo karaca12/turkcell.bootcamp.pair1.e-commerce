@@ -8,15 +8,15 @@ import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.product.re
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.product.request.UpdateProductRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.product.response.ProductListResponse;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.product.response.ProductPriceChangedResponse;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.mapper.ProductMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-
 
     private final ProductRepository productRepository;
 
@@ -26,19 +26,7 @@ public class ProductServiceImpl implements ProductService {
 
     public List<ProductListResponse> getAll() {
         List<Product> products = productRepository.findAll();
-        List<ProductListResponse> response = new ArrayList<>();
-
-        // Beginner Level List Mapping
-        for (Product product: products) {
-            ProductListResponse dto = new ProductListResponse(
-                    product.getId(),
-                    product.getName(),
-                    productRepository.findCategoryIdsByProductId(product.getId()),
-                    product.getPrice());
-            response.add(dto);
-        }
-
-        return response;
+        return ProductMapper.INSTANCE.productGetAllResponseListFromProductList(products);
     }
     @Override
     public Optional<Product> getById(int id) {
@@ -47,25 +35,19 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void add(AddProductRequest addProductRequest) {
-        Product product=new Product();
-        product.setName(addProductRequest.getName());
-        product.setPrice(addProductRequest.getPrice());
-        product.setStockQuantity(addProductRequest.getStock());
+        Product product=ProductMapper.INSTANCE.productFromAddRequest(addProductRequest);
         productRepository.save(product);
     }
 
     @Override
     public void update(UpdateProductRequest updateProductRequest) {
-        Product product = productRepository.findById(updateProductRequest.getUpdatedId())
-                .orElseThrow(() -> new BusinessException("Product not found with id " + updateProductRequest.getUpdatedId()));
-        product.setName(updateProductRequest.getName());
-        product.setPrice(updateProductRequest.getPrice());
-        product.setDescription(updateProductRequest.getDescription());
-        product.setStockQuantity(updateProductRequest.getStock());
-        product.setSupplierId(findTopByOrderByPriceDesc().getSupplierId());
+        if( productRepository.findById(updateProductRequest.getUpdatedId()).isEmpty()){
+            throw new BusinessException("Product not found with id " + updateProductRequest.getUpdatedId());
+
+        }
+
+        Product product=ProductMapper.INSTANCE.productFromUpdateRequest(updateProductRequest);
         productRepository.save(product);
-
-
 
     }
 

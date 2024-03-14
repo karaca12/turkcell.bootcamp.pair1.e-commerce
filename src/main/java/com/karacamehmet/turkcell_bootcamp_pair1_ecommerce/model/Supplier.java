@@ -17,7 +17,7 @@ public class Supplier {
     private Integer id;
 
     @MapsId
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id", nullable = false)
     private User users;
 

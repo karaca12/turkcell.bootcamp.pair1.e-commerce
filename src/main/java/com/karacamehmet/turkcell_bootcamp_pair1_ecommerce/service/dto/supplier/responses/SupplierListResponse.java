@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class SupplierListResponse {
-    private int id;
+    private Integer id;
     private String name;
     private String email;
     private String phoneNumber;

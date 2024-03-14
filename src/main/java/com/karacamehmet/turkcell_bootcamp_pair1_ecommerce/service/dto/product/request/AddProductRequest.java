@@ -18,6 +18,8 @@ public class AddProductRequest {
     @NotBlank(message="This field cannot be empty")
     @Size(min=3,max=25,message = "This field should contain at least 3 and at most 25 characters. ")
     private String name;
+    @Size(min=3,max=25,message = "This field should contain at least 3 and at most 25 characters. ")
+    private String description;
     @Min(value = 0,message = "The price of a product cannot be smaller than 0")
     private double price;
     @Min(0)
