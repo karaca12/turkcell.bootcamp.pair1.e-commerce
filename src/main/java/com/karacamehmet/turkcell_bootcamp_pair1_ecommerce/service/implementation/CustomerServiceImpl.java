@@ -10,6 +10,7 @@ import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.customer.r
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.customer.response.CustomerGetAllResponse;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.customer.response.CustomerNullOrderResponse;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.customer.response.CustomersWithMoreThanFiveProductsInCartResponse;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.mapper.CustomerMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,13 +26,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<CustomerGetAllResponse> getAll() {
-        return customerRepository.findAll().stream()
-                .map(customer -> {
-                    return CustomerGetAllResponse.builder()
-                            .id(customer.getId())
-                            .lastName(customer.getLastName())
-                            .build();
-                }).toList();
+        List<Customer> customers = customerRepository.findAll();
+        return CustomerMapper.INSTANCE.customerGetAllResponseListFromCustomerList(customers);
     }
 
     @Override
@@ -40,19 +36,17 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void add(CustomerAddRequest customerAddRequest) { //YAPAMADIM !!!
-        Customer customer = new Customer();
-        customer.setLastName(customerAddRequest.getLastName());
-
+    public void add(CustomerAddRequest customerAddRequest) {
+        Customer customer = CustomerMapper.INSTANCE.customerFromAddRequest(customerAddRequest);
         customerRepository.save(customer);
     }
 
     @Override
     public void update(CustomerUpdateRequest customerUpdateRequest) {
-        Customer customer = getById(customerUpdateRequest.getUpdatedId())
+        getById(customerUpdateRequest.getUpdatedId())
                 .orElseThrow(() -> new BusinessException("Customer not found"));
-        customer.setLastName(customerUpdateRequest.getLastName());
 
+        Customer customer = CustomerMapper.INSTANCE.customerFromUpdateRequest(customerUpdateRequest);
         customerRepository.save(customer);
     }
 

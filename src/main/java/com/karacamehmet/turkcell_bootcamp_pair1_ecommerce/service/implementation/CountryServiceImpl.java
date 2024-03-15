@@ -8,6 +8,7 @@ import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.Co
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.country.request.CountryAddRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.country.request.CountryUpdateRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.country.response.CountryGetAllResponse;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.mapper.CountryMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,13 +24,8 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public List<CountryGetAllResponse> getAll() {
-        return countryRepository.findAll().stream()
-                .map(country -> {
-                    return CountryGetAllResponse.builder()
-                            .name(country.getName())
-                            .id(country.getId())
-                            .build();
-                }).toList();
+        List<Country> countries = countryRepository.findAll();
+        return CountryMapper.INSTANCE.countryGetAllResponseListFromCountryList(countries);
     }
 
     @Override
@@ -39,18 +35,16 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public void add(CountryAddRequest countryAddRequest) {
-        Country country = new Country();
-        country.setName(countryAddRequest.getName());
-
+        Country country = CountryMapper.INSTANCE.countryFromAddRequest(countryAddRequest);
         countryRepository.save(country);
     }
 
     @Override
     public void update(CountryUpdateRequest countryUpdateRequest) {
-        Country country = getById(countryUpdateRequest.getUpdatedId())
+        countryRepository.findById(countryUpdateRequest.getUpdatedId())
                 .orElseThrow(() -> new BusinessException("Country not found"));
-        country.setName(countryUpdateRequest.getName());
 
+        Country country = CountryMapper.INSTANCE.countryFromUpdateRequest(countryUpdateRequest);
         countryRepository.save(country);
     }
 

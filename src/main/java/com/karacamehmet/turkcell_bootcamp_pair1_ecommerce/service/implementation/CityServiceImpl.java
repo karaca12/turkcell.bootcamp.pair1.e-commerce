@@ -9,6 +9,7 @@ import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.Co
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.city.request.CityAddRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.city.request.CityUpdateRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.city.response.CityGetAllResponse;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.mapper.CityMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,14 +28,8 @@ public class CityServiceImpl implements CityService {
 
     @Override
     public List<CityGetAllResponse> getAll() {
-        return cityRepository.findAll().stream()
-                .map(city -> {
-                    return CityGetAllResponse.builder()
-                            .name(city.getName())
-                            .countryId(city.getCountryId().getId())
-                            .id(city.getId())
-                            .build();
-                }).toList();
+        List<City> cities = cityRepository.findAll();
+        return CityMapper.INSTANCE.cityGetAllResponseListFromCityList(cities);
     }
 
     @Override
@@ -44,24 +39,21 @@ public class CityServiceImpl implements CityService {
 
     @Override
     public void add(CityAddRequest cityAddRequest) {
-        City city = new City();
-        Country country = countryService.getById(cityAddRequest.getCountryId())
+        countryService.getById(cityAddRequest.getCountryId())
                 .orElseThrow(() -> new BusinessException("Country not found"));
-        city.setCountryId(country);
-        city.setName(cityAddRequest.getName());
 
+        City city = CityMapper.INSTANCE.cityFromAddRequest(cityAddRequest);
         cityRepository.save(city);
     }
 
     @Override
     public void update(CityUpdateRequest cityUpdateRequest) {
-        City city = getById(cityUpdateRequest.getUpdatedId())
+        cityRepository.findById(cityUpdateRequest.getUpdatedId())
                 .orElseThrow(() -> new BusinessException("City not found"));
-        Country country = countryService.getById(cityUpdateRequest.getCountryId())
+        countryService.getById(cityUpdateRequest.getCountryId())
                 .orElseThrow(() -> new BusinessException("Country not found"));
-        city.setCountryId(country);
-        city.setName(cityUpdateRequest.getName());
 
+        City city = CityMapper.INSTANCE.cityFromUpdateRequest(cityUpdateRequest);
         cityRepository.save(city);
     }
 

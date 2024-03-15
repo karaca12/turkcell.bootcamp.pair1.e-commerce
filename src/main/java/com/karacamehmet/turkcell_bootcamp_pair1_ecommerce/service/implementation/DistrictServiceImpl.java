@@ -10,6 +10,7 @@ import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.Di
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.district.request.DistrictAddRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.district.request.DistrictUpdateRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.district.response.DistrictGetAllResponse;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.mapper.DistrictMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,14 +28,8 @@ public class DistrictServiceImpl implements DistrictService {
 
     @Override
     public List<DistrictGetAllResponse> getAll() {
-        return districtRepository.findAll().stream()
-                .map(district -> {
-                    return DistrictGetAllResponse.builder()
-                            .id(district.getId())
-                            .cityId(district.getCityId().getId())
-                            .name(district.getName())
-                            .build();
-                }).toList();
+        List<District> districts = districtRepository.findAll();
+        return DistrictMapper.INSTANCE.districtGetAllResponseListFromDistrictList(districts);
     }
 
     @Override
@@ -44,24 +39,21 @@ public class DistrictServiceImpl implements DistrictService {
 
     @Override
     public void add(DistrictAddRequest districtAddRequest) {
-        District district = new District();
-        City city = cityService.getById(districtAddRequest.getCityId())
+        cityService.getById(districtAddRequest.getCityId())
                 .orElseThrow(() -> new BusinessException("City not found"));
-        district.setCityId(city);
-        district.setName(districtAddRequest.getName());
 
+        District district = DistrictMapper.INSTANCE.districtFromAddRequest(districtAddRequest);
         districtRepository.save(district);
     }
 
     @Override
     public void update(DistrictUpdateRequest districtUpdateRequest) {
-        District district = getById(districtUpdateRequest.getUpdatedId())
+        districtRepository.findById(districtUpdateRequest.getUpdatedId())
                 .orElseThrow(() -> new BusinessException("District not found"));
-        City city = cityService.getById(districtUpdateRequest.getCityId())
+        cityService.getById(districtUpdateRequest.getCityId())
                 .orElseThrow(() -> new BusinessException("City not found"));
-        district.setCityId(city);
-        district.setName(districtUpdateRequest.getName());
 
+        District district = DistrictMapper.INSTANCE.districtFromUpdateRequest(districtUpdateRequest);
         districtRepository.save(district);
     }
 
