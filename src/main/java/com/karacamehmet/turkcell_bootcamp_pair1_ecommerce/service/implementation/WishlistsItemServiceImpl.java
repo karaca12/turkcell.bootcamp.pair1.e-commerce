@@ -9,6 +9,7 @@ import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.WishlistsIt
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.WishlistsItemService;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.wishlistsItem.request.AddWishlistsItemRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.wishlistsItem.response.ProductsAddedToWishlistResponse;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.mapper.WishlistsItemMapper;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -44,11 +45,10 @@ public class WishlistsItemServiceImpl implements WishlistsItemService {
                 .orElseThrow(() -> new EntityNotFoundException("Wishlist not found"));
         Product product = productRepository.findById(wishlistsItem.getProductId())
                 .orElseThrow(() -> new EntityNotFoundException("Product not found"));
-        // Create new WishlistsItem and set its fields
-        WishlistsItem newWishlistsItem = new WishlistsItem();
+        WishlistsItem newWishlistsItem = WishlistsItemMapper.INSTANCE.addWishlistsItemRequestToWishlistsItem(wishlistsItem);
+
         newWishlistsItem.setWishlistId(wishlist);
         newWishlistsItem.setProductId(product);
-        newWishlistsItem.setQuantity(wishlistsItem.getQuantity());
         return wishlistsItemRepository.save(newWishlistsItem);
     }
 

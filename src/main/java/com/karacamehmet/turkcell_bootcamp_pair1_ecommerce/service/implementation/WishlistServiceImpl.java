@@ -41,7 +41,7 @@ public class WishlistServiceImpl implements WishlistService {
                 .orElseThrow(() -> new EntityNotFoundException("Customer not found"));
         Wishlist newWishlist = WishlistMapper.INSTANCE.addWishlistRequestToWishlist(wishlist);
         // No business rule to check?
-
+        newWishlist.setCustomerId(customer);
         return wishlistRepository.save(newWishlist);
     }
 
