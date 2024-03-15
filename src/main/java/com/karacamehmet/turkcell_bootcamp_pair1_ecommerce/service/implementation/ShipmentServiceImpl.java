@@ -63,6 +63,11 @@ public class ShipmentServiceImpl implements ShipmentService {
 
     @Override
     public void deleteById(int id) {
+
+        if( shipmentRepository.findById(id).isEmpty()){
+            throw new BusinessException("Product not found with id " + id);
+
+        }
         shipmentRepository.deleteById(id);
     }
 
