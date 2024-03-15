@@ -1,7 +1,8 @@
 package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction;
 
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.CartProduct;
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.cartproducts.request.CartProductsAddRequest;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.cartproducts.request.CartProductAddRequest;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.cartproducts.request.CartProductUpdateRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.cartproducts.response.CartProductGetAllResponse;
 
 import java.util.List;
@@ -12,9 +13,9 @@ public interface CartProductService {
 
     Optional<CartProduct> getById(int id);
 
-    void add(CartProductsAddRequest cartProductsAddRequest);
+    void add(CartProductAddRequest cartProductAddRequest);
 
-    void update(CartProduct cartProduct);
+    void update(CartProductUpdateRequest cartProductUpdateRequest);
 
     void deleteById(int id);
 }

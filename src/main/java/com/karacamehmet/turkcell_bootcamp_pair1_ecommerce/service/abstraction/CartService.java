@@ -1,6 +1,7 @@
 package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction;
 
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Cart;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.cart.request.CartUpdateRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.cart.response.CartGetAllResponse;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.cart.request.CartAddRequest;
 
@@ -14,7 +15,7 @@ public interface CartService {
 
     void add(CartAddRequest cartAddRequest);
 
-    void update(Cart cart);
+    void update(CartUpdateRequest cartUpdateRequest);
 
     void deleteById(int id);
 }

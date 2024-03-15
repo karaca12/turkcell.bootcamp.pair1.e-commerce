@@ -2,6 +2,7 @@ package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.mapper;
 
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Cart;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.cart.request.CartAddRequest;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.cart.request.CartUpdateRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.cart.response.CartGetAllResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -21,4 +22,7 @@ public interface CartMapper {
     CartGetAllResponse cartGetAllResponseFromCart(Cart cart);
 
     List<CartGetAllResponse> cartGetAllResponseListFromCartList(List<Cart> carts);
+
+    @Mapping(source = "updatedId", target = "id")
+    Cart cartFromUpdateRequest(CartUpdateRequest cartUpdateRequest);
 }

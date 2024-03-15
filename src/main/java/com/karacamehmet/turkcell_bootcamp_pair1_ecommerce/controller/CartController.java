@@ -1,6 +1,7 @@
 package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.controller;
 
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.CartService;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.cart.request.CartUpdateRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.cart.response.CartGetAllResponse;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.cart.request.CartAddRequest;
 import jakarta.validation.Valid;
@@ -23,5 +24,10 @@ public class CartController {
     @PostMapping
     void add(@RequestBody @Valid CartAddRequest cartAddRequest) {
         cartService.add(cartAddRequest);
+    }
+
+    @PutMapping
+    void update(@RequestBody @Valid CartUpdateRequest cartUpdateRequest) {
+        cartService.update(cartUpdateRequest);
     }
 }

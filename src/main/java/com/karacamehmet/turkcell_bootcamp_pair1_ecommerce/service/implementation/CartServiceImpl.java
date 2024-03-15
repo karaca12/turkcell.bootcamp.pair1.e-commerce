@@ -6,6 +6,7 @@ import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Customer;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.CartRepository;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.CartService;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.CustomerService;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.cart.request.CartUpdateRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.cart.response.CartGetAllResponse;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.cart.request.CartAddRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.mapper.CartMapper;
@@ -44,8 +45,11 @@ public class CartServiceImpl implements CartService {
 
 
     @Override
-    public void update(Cart cart) {
-
+    public void update(CartUpdateRequest cartUpdateRequest) {
+        Cart cartForCustomer = cartRepository.findById(cartUpdateRequest.getUpdatedId()).orElseThrow(() -> new BusinessException("Cart with this id doesn't exist"));
+        Cart cart = CartMapper.INSTANCE.cartFromUpdateRequest(cartUpdateRequest);
+        cart.setCustomer(cartForCustomer.getCustomer());
+        cartRepository.save(cart);
     }
 
     @Override

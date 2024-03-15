@@ -1,6 +1,5 @@
 package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.cartproducts.request;
 
-
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -14,11 +13,9 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CartProductsAddRequest {
+public class CartProductUpdateRequest {
     @Min(1)
-    private Integer cartId;
-    @Min(1)
-    private Integer productId;
+    private Integer updatedId;
     @Min(1)
     private Integer quantity;
     @NotNull

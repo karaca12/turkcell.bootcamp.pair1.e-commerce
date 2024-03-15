@@ -1,9 +1,11 @@
 package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.implementation;
 
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.core.exception.types.BusinessException;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.CartProduct;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.CartProductRepository;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.CartProductService;
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.cartproducts.request.CartProductsAddRequest;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.cartproducts.request.CartProductAddRequest;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.cartproducts.request.CartProductUpdateRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.cartproducts.response.CartProductGetAllResponse;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.mapper.CartProductMapper;
 import org.springframework.stereotype.Service;
@@ -31,15 +33,19 @@ public class CartProductServiceImpl implements CartProductService {
     }
 
     @Override
-    public void add(CartProductsAddRequest cartProductsAddRequest) {
-        CartProduct cartProduct = CartProductMapper.INSTANCE.cartProductFromAddRequest(cartProductsAddRequest);
+    public void add(CartProductAddRequest cartProductAddRequest) {
+        CartProduct cartProduct = CartProductMapper.INSTANCE.cartProductFromAddRequest(cartProductAddRequest);
         cartProductRepository.save(cartProduct);
     }
 
 
     @Override
-    public void update(CartProduct cartProduct) {
-
+    public void update(CartProductUpdateRequest cartProductUpdateRequest) {
+        CartProduct cartProductForCartAndProduct = cartProductRepository.findById(cartProductUpdateRequest.getUpdatedId()).orElseThrow(() -> new BusinessException("Cart with this id doesn't exist"));
+        CartProduct cartProduct = CartProductMapper.INSTANCE.cartProductFromUpdateRequest(cartProductUpdateRequest);
+        cartProduct.setCart(cartProductForCartAndProduct.getCart());
+        cartProduct.setProductId(cartProductForCartAndProduct.getProductId());
+        cartProductRepository.save(cartProduct);
     }
 
     @Override

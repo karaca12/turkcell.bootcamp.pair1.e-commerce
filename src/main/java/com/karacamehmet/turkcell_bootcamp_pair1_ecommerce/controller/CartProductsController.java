@@ -1,9 +1,8 @@
 package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.controller;
 
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.CartProduct;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.CartProductService;
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.cart.request.CartAddRequest;
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.cartproducts.request.CartProductsAddRequest;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.cartproducts.request.CartProductAddRequest;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.cartproducts.request.CartProductUpdateRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.cartproducts.response.CartProductGetAllResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -23,7 +22,12 @@ public class CartProductsController {
     }
 
     @PostMapping
-    void add(@RequestBody @Valid CartProductsAddRequest cartProductsAddRequest) {
-        cartProductService.add(cartProductsAddRequest);
+    void add(@RequestBody @Valid CartProductAddRequest cartProductAddRequest) {
+        cartProductService.add(cartProductAddRequest);
+    }
+
+    @PutMapping
+    void update(@RequestBody @Valid CartProductUpdateRequest cartProductUpdateRequest) {
+        cartProductService.update(cartProductUpdateRequest);
     }
 }
