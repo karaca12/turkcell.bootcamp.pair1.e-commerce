@@ -7,6 +7,7 @@ import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.WishlistRep
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.WishlistService;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.wishlist.request.AddWishlistRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.wishlist.response.WishlistNonUpdatedResponse;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.mapper.WishlistMapper;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -38,11 +39,9 @@ public class WishlistServiceImpl implements WishlistService {
     public Wishlist add(AddWishlistRequest wishlist) {
         Customer customer = customerRepository.findById(wishlist.getCustomerId())
                 .orElseThrow(() -> new EntityNotFoundException("Customer not found"));
-        Wishlist newWishlist = new Wishlist();
+        Wishlist newWishlist = WishlistMapper.INSTANCE.addWishlistRequestToWishlist(wishlist);
         // No business rule to check?
-        newWishlist.setCustomerId(customer);
-        newWishlist.setCreatedAt(wishlist.getCreatedAt());
-        newWishlist.setUpdatedAt(wishlist.getUpdatedAt());
+
         return wishlistRepository.save(newWishlist);
     }
 
