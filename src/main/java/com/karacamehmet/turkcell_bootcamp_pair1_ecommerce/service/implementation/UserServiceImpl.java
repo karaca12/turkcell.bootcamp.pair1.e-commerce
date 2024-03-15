@@ -6,6 +6,7 @@ import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.UserReposit
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.UserService;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.user.request.UserAddRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.user.response.UserAddressResponse;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.mapper.UserMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -37,11 +38,7 @@ public class UserServiceImpl implements UserService {
             throw new BusinessException("This email is already in use.");
         }
 
-        User newUser = new User();
-        newUser.setName(userAddRequest.getName());
-        newUser.setEmail(userAddRequest.getEmail());
-        newUser.setPasswordHash(userAddRequest.getPasswordHash());
-        newUser.setPhoneNumber(userAddRequest.getPhoneNumber());
+        User newUser = UserMapper.INSTANCE.userAddRequestToUser(userAddRequest);
         return userRepository.save(newUser);
     }
 
