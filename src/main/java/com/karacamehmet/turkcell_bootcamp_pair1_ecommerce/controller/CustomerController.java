@@ -9,6 +9,7 @@ import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.customer.r
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.customer.response.CustomerGetAllResponse;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.customer.response.CustomerNullOrderResponse;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.customer.response.CustomersWithMoreThanFiveProductsInCartResponse;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.registration.request.CustomerRegistrationRequest;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -39,6 +40,11 @@ public class CustomerController {
     @PostMapping
     void createCustomer(@RequestBody @Valid CustomerAddRequest customerAddRequest) {
         customerService.add(customerAddRequest);
+    }
+
+    @PostMapping("/register")
+    Customer registerCustomer(@RequestBody @Valid CustomerRegistrationRequest customerRegistrationRequest) {
+        return customerService.add(customerRegistrationRequest);
     }
 
     @PutMapping

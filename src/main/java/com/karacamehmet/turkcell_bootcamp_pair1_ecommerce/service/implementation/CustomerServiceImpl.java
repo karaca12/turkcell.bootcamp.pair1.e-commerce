@@ -4,12 +4,13 @@ import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.core.exception.types.B
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Customer;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.CustomerRepository;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.CustomerService;
-import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.city.request.CityAddRequest;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.RegistrationService;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.customer.request.CustomerAddRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.customer.request.CustomerUpdateRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.customer.response.CustomerGetAllResponse;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.customer.response.CustomerNullOrderResponse;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.customer.response.CustomersWithMoreThanFiveProductsInCartResponse;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.registration.request.CustomerRegistrationRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.mapper.CustomerMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
     private CustomerRepository customerRepository;
-
+    private RegistrationService registrationService;
 
     @Override
     public List<CustomerGetAllResponse> getAll() {
@@ -39,6 +40,11 @@ public class CustomerServiceImpl implements CustomerService {
     public void add(CustomerAddRequest customerAddRequest) {
         Customer customer = CustomerMapper.INSTANCE.customerFromAddRequest(customerAddRequest);
         customerRepository.save(customer);
+    }
+
+    @Override
+    public Customer add(CustomerRegistrationRequest customerRegistrationRequest) {
+        return registrationService.registerCustomer(customerRegistrationRequest);
     }
 
     @Override
