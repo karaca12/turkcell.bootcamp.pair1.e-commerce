@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface SupplierService {
     List<SupplierListResponse> getAll();
-    Optional<Supplier> getById(int id);
+    Supplier getById(int id);
 
     void add(AddSupplierRequest addSupplierRequest);
 

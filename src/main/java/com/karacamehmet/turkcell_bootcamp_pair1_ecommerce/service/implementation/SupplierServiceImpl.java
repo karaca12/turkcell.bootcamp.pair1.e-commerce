@@ -1,6 +1,7 @@
 package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.implementation;
 
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.core.exception.types.BusinessException;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Shipment;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.Supplier;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.User;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.SupplierRepository;
@@ -30,8 +31,9 @@ public class SupplierServiceImpl implements SupplierService {
     }
 
     @Override
-    public Optional<Supplier> getById(int id) {
-        return supplierRepository.findById(id);
+    public Supplier getById(int id) {
+
+        return supplierRepository.findById(id).orElseThrow(()->new BusinessException("There is no supplier with id:"+id));
     }
 
     @Override
@@ -54,6 +56,11 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Override
     public void deleteById(int id) {
+
+        if( supplierRepository.findById(id).isEmpty()){
+            throw new BusinessException("Product not found with id " + id);
+
+        }
         supplierRepository.deleteById(id);
     }
 }

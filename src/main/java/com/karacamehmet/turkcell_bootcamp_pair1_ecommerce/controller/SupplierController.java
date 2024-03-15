@@ -30,4 +30,8 @@ public class SupplierController {
         supplierService.update(updateSupplierRequest);
 
     }
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable int id){
+        supplierService.deleteById(id);
+    }
 }
