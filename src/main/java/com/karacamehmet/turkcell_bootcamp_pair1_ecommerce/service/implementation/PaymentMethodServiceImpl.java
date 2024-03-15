@@ -1,13 +1,14 @@
 package com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.implementation;
 
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.core.exception.types.BusinessException;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.model.PaymentMethod;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.repository.PaymentMethodRepository;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.abstraction.PaymentMethodService;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.paymentmethod.request.PaymentMethodAddRequest;
 import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.dto.paymentmethod.response.PaymentMethodGetAllResponse;
+import com.karacamehmet.turkcell_bootcamp_pair1_ecommerce.service.mapper.PaymentMethodMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,12 +23,7 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
     @Override
     public List<PaymentMethodGetAllResponse> getAll() {
         List<PaymentMethod> paymentMethods = paymentMethodRepository.findAll();
-        List<PaymentMethodGetAllResponse> response = new ArrayList<>();
-        for (PaymentMethod paymentMethod : paymentMethods) {
-            PaymentMethodGetAllResponse dto = new PaymentMethodGetAllResponse(paymentMethod.getId(), paymentMethod.getName());
-            response.add(dto);
-        }
-        return response;
+        return PaymentMethodMapper.INSTANCE.paymentMethodGetAllResponseListFromPaymentMethodList(paymentMethods);
     }
 
     @Override
@@ -37,8 +33,11 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
 
     @Override
     public void add(PaymentMethodAddRequest paymentMethodAddRequest) {
-        PaymentMethod paymentMethod = new PaymentMethod();
-        paymentMethod.setName(paymentMethodAddRequest.getName());
+        Optional<PaymentMethod> optionalPaymentMethod = paymentMethodRepository.findByName(paymentMethodAddRequest.getName());
+        if (optionalPaymentMethod.isPresent()) {
+            throw new BusinessException("This payment method already exists");
+        }
+        PaymentMethod paymentMethod = PaymentMethodMapper.INSTANCE.paymentMethodFromAddRequest(paymentMethodAddRequest);
         paymentMethodRepository.save(paymentMethod);
     }
 
